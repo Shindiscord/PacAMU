@@ -20,8 +20,7 @@ class PacManTest  extends MovableObject implements amuGameObject{
 	
 	private double nextVspeed;
 	private double nextHspeed;
-	private long timeSinceLastUpdate = 0;
-	private int nextDirectionUpdate = 20;
+	private int nextDirectionUpdate = 30;
 	private final SingleSprite sideSprite = new SingleSprite(
 			new Image("/img/testLink.png")
 			,48, 48, 10);
@@ -36,18 +35,15 @@ class PacManTest  extends MovableObject implements amuGameObject{
 	}
 	PacManTest(){
 		s =  new ChangeableSprite(sideSprite);
-		this.setPos(5, 10);
-		s.setPosition(5, 10);
+		this.setPos(100, 60);
+		s.setPosition(100, 60);
 		this.nextHspeed = 0;
 		this.nextVspeed = 5;
 		this.setHspeed(5);
 	}
 	public void update(long msSinceLastCall){
-		timeSinceLastUpdate += msSinceLastCall;
-		if(timeSinceLastUpdate >= 40) {
 			this.s.nextSubimage();
-			this.s.setPosition(getX(), getY());
-			this.timeSinceLastUpdate = 0;
+			this.s.setPosition(getX()-24, getY()-24);
 			this.nextDirectionUpdate --;
 			if(this.nextDirectionUpdate <= 0) {
 				this.setHspeed(this.nextHspeed);
@@ -61,9 +57,8 @@ class PacManTest  extends MovableObject implements amuGameObject{
 					this.nextHspeed = -this.nextVspeed;
 					this.nextVspeed = 0;
 				}
-				this.nextDirectionUpdate = 20;
+				this.nextDirectionUpdate = 30;
 			}
-		}
 	}
 }
 

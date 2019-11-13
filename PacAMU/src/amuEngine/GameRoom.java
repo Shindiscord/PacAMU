@@ -23,11 +23,11 @@ public class GameRoom{
             public void handle(long currentNanoTime){
             	if(prevTime == 0)
             		prevTime = currentNanoTime;
-            	if(currentNanoTime - prevTime > 1000000) {
-            		pEngine.update((currentNanoTime-prevTime)/1000000);
+            	if((currentNanoTime - prevTime)/1000000 >= 1000/refreshRate){
             		for(amuGameObject o: objectList) {
             			o.update((currentNanoTime-prevTime)/1000000);
-            		}
+            		}            		
+            		pEngine.update((currentNanoTime-prevTime)/1000000);
             		prevTime = currentNanoTime;
             	}
             }
