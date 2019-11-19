@@ -50,7 +50,7 @@ public class GameRoom{
 	
 	
 	public void start(Stage window, int width, int height) {
-		window.setScene(new Scene(scene.getPane(), 500, 250));
+		window.setScene(new Scene(scene.getPane(), width, height));
 		this.kManager.start(window);
 		timer.start();
 		window.show();
