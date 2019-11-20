@@ -10,6 +10,7 @@ import java.lang.Math;
 
 class PacManTest  extends MovableObject implements amuGameObject, KeyboardListener{
 	
+<<<<<<< HEAD
 	private double gridSize;
 	
 	private KeyCode currentDirection;
@@ -18,6 +19,9 @@ class PacManTest  extends MovableObject implements amuGameObject, KeyboardListen
 	private double prevGridX;
 	private double prevGridY;
 	
+=======
+
+>>>>>>> refs/remotes/origin/Alix
 	private final SingleSprite sideSprite = new SingleSprite(
 			new Image("/img/testLink.png")
 			,48, 48, 10);
@@ -26,6 +30,7 @@ class PacManTest  extends MovableObject implements amuGameObject, KeyboardListen
 			,48, 48, 10);
 	
 	ChangeableSprite s;
+	private int bordureH, bordureV;
 	
 	public Sprite getSprite() {
 		return this.s;
@@ -35,11 +40,15 @@ class PacManTest  extends MovableObject implements amuGameObject, KeyboardListen
 		this.setPos(100, 60);
 		s.setPosition(100, 60);
 		this.setHspeed(5);
+<<<<<<< HEAD
 		this.gridSize = 32.0;
 		this.currentDirection = KeyCode.LEFT;
 		this.nextDirection = KeyCode.LEFT;
 		this.prevGridX = 0.0;
 		this.prevGridY = 0.0;
+=======
+		
+>>>>>>> refs/remotes/origin/Alix
 	}
 	PacManTest(double x, double y){
 		s =  new ChangeableSprite(sideSprite);
@@ -48,6 +57,7 @@ class PacManTest  extends MovableObject implements amuGameObject, KeyboardListen
 		this.setHspeed(5);
 	}
 	
+<<<<<<< HEAD
 	public void onKeyPressed(KeyCode key) {
 		switch(key) {
 		case UP:
@@ -61,6 +71,34 @@ class PacManTest  extends MovableObject implements amuGameObject, KeyboardListen
 			break;
 		case RIGHT:
 			this.nextDirection = KeyCode.RIGHT;
+=======
+	PacManTest( double x, double y, int bordureH, int bordureV){
+		this.bordureH = bordureH;
+		this.bordureV = bordureV;
+	}
+	
+	public void onKeyPressed(KeyCode key) {
+		switch(key) {
+		case UP:
+			this.setHspeed(0);
+			this.setVspeed(-5);
+			this.s.switchTo(verticalSprite);
+			break;
+		case DOWN:
+			this.setHspeed(0);
+			this.setVspeed(5);
+			this.s.switchTo(verticalSprite);
+			break;
+		case LEFT:
+			this.setHspeed(-5);
+			this.setVspeed(0);
+			this.s.switchTo(sideSprite);
+			break;
+		case RIGHT:
+			this.setHspeed(5);
+			this.setVspeed(0);
+			this.s.switchTo(sideSprite);
+>>>>>>> refs/remotes/origin/Alix
 			break;
 		default:
 			
@@ -72,6 +110,7 @@ class PacManTest  extends MovableObject implements amuGameObject, KeyboardListen
 	}
 	
 	public void update(long msSinceLastCall){
+<<<<<<< HEAD
 		
 		double currentGridX = Math.floor(this.getX()/this.gridSize);
 		double currentGridY = Math.floor(this.getY()/this.gridSize);
@@ -110,13 +149,34 @@ class PacManTest  extends MovableObject implements amuGameObject, KeyboardListen
 						break;
 					default:
 				}
+=======
+			this.s.nextSubimage();
+			this.s.setPosition(getX() - 24, getY() - 34);
+			PacManTest pmt = new PacManTest(100, 100, 640, 480);
+			
+			if(getX() >= pmt.bordureH) { 
+				this.setPos(0, getY());
+>>>>>>> refs/remotes/origin/Alix
 			}
+<<<<<<< HEAD
 			this.prevGridX = currentGridX;
 			this.prevGridY = currentGridY;
 		}
 		this.s.setPosition(this.getX()-24, this.getY()-24);
 		this.s.nextSubimage();
 			
+=======
+			else if(getX() <= 0) {
+				this.setPos(pmt.bordureH, getY());
+			}
+			else if(getY() >= pmt.bordureV) {
+				this.setPos(getX(), 0);
+			}
+			else if(getY() <= 0) {
+				this.setPos(getX(), pmt.bordureV);
+			}
+		
+>>>>>>> refs/remotes/origin/Alix
 	}
 }
 
