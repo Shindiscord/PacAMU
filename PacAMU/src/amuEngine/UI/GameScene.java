@@ -3,8 +3,8 @@ package amuEngine.UI;
 
 import amuEngine.graphics.*;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+
 public class GameScene {
 	StackPane currentPane;
 	
