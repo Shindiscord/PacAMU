@@ -1,14 +1,15 @@
-import javafx.application.Application;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
+package game;
+
 import amuEngine.graphics.*;
 import amuEngine.*;
 import amuEngine.physics.*;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+
 import java.lang.Math;
 
 
-class PacManTest  extends MovableObject implements amuGameObject, KeyboardListener{
+class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 	
 	private double gridSize;
 	
@@ -32,7 +33,7 @@ class PacManTest  extends MovableObject implements amuGameObject, KeyboardListen
 		return this.s;
 	}
 	
-	PacManTest(double x, double y, int bordureH, int bordureV){
+	Student(double x, double y, int bordureH, int bordureV){
 		s =  new ChangeableSprite(sideSprite);
 		s.setPosition(x, y);
 		this.setPos(x, y);
@@ -127,27 +128,4 @@ class PacManTest  extends MovableObject implements amuGameObject, KeyboardListen
 		this.s.nextSubimage();
 			
 	}
-}
-
-class TileSetTest implements amuGameObject{
-	private Sprite s = new SingleSprite(new Image("/img/tilesetTest.png")
-			,546, 418, 1);
-	public Sprite getSprite() {return this.s;}
-	public void update(long time) {
-	}
-}
-
-public class Test extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
-    
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("test1");
-        GameRoom room = new GameRoom(40);
-        room.addObject(new TileSetTest());
-        room.addObject(new PacManTest(64, 64, 640, 480));
-        room.start(primaryStage, 640, 480);
-    }
 }
