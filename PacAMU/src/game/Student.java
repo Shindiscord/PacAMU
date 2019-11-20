@@ -12,6 +12,7 @@ import java.lang.Math;
 class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 	
 	private double gridSize;
+	private boolean updateSprite;
 	
 	private KeyCode currentDirection;
 	private KeyCode nextDirection;
@@ -19,12 +20,19 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 	private double prevGridX;
 	private double prevGridY;
 	
-	private final SingleSprite sideSprite = new SingleSprite(
-			new Image("/img/testLink.png")
-			,48, 48, 10);
-	private final SingleSprite verticalSprite = new SingleSprite(
-			new Image("/img/testLink_down.png")
-			,48, 48, 10);
+	private final SingleSprite leftSprite = new SingleSprite(
+			new Image("/img/Player/male_l_30_51_8.png")
+			,30, 51, 8);
+	private final SingleSprite upSprite = new SingleSprite(
+			new Image("/img/Player/male_u_30_51_8.png")
+			,30, 51, 8);
+	
+	private final SingleSprite rightSprite = new SingleSprite(
+			new Image("/img/Player/male_r_30_51_8.png")
+			,30, 51, 8);
+	private final SingleSprite downSprite = new SingleSprite(
+			new Image("/img/Player/male_d_30_51_8.png")
+			,30, 51, 8);
 	
 	ChangeableSprite s;
 	private int bordureH, bordureV;
@@ -34,7 +42,8 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 	}
 	
 	Student(double x, double y, int bordureH, int bordureV){
-		s =  new ChangeableSprite(sideSprite);
+		this.updateSprite = false;
+		s =  new ChangeableSprite(rightSprite);
 		s.setPosition(x, y);
 		this.setPos(x, y);
 		this.gridSize = 32;
@@ -88,22 +97,22 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 					case UP:
 						this.setVspeed(-5);
 						this.setHspeed(0);
-						this.s.switchTo(verticalSprite);
+						this.s.switchTo(upSprite);
 						break;
 					case DOWN:
 						this.setVspeed(5);
 						this.setHspeed(0);
-						this.s.switchTo(verticalSprite);
+						this.s.switchTo(downSprite);
 						break;
 					case LEFT:
 						this.setHspeed(-5);
 						this.setVspeed(0);
-						this.s.switchTo(sideSprite);
+						this.s.switchTo(leftSprite);
 						break;
 					case RIGHT:
 						this.setHspeed(5);
 						this.setVspeed(0);
-						this.s.switchTo(sideSprite);
+						this.s.switchTo(rightSprite);
 						break;
 					default:
 				}
@@ -124,8 +133,9 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 		if(this.getY() <= -1) {
 			this.setPos(this.getX(), this.bordureV);
 		}
-		this.s.setPosition(this.getX()-24, this.getY()-24);
-		this.s.nextSubimage();
-			
+		this.s.setPosition(this.getX()-15, this.getY()-25);
+		this.updateSprite = !this.updateSprite;
+		if(this.updateSprite)
+			this.s.nextSubimage();
 	}
 }
