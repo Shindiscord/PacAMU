@@ -133,7 +133,7 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 		if(this.getY() <= -1) {
 			this.setPos(this.getX(), this.bordureV);
 		}
-		this.s.setPosition(this.getX()-15, this.getY()-25);
+		this.s.setPosition(this.getX(), this.getY()-20);
 		this.updateSprite = !this.updateSprite;
 		if(this.updateSprite)
 			this.s.nextSubimage();
