@@ -3,6 +3,9 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import amuEngine.graphics.*;
+import game.map.Grid;
+import java.io.IOException;
+
 import amuEngine.*;
 
 class TileSetTest implements amuGameObject{
@@ -15,11 +18,20 @@ class TileSetTest implements amuGameObject{
 
 public class Test extends Application {
     public static void main(String[] args) {
-        launch(args);
+    	launch(args);
     }
     
     @Override
     public void start(Stage primaryStage) {
+    	Grid grid = null;
+		try {
+			grid = new Grid("res/mapFiles/map1.txt", 8, 5);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	grid.print();
+        
         primaryStage.setTitle("test1");
         GameRoom room = new GameRoom(40);
         room.addObject(new TileSetTest());
