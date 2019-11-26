@@ -15,6 +15,13 @@ public class Grid {
 	private int largeur;
 	private int hauteur;
 	
+	public int getLargeur() {
+		return this.largeur;
+	}
+	
+	public int getHauteur() {
+		return this.hauteur;
+	}
 	
 	public char getTile(int x, int y) {
 		return this.map[x][y];
