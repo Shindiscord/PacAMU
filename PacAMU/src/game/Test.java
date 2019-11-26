@@ -25,7 +25,7 @@ public class Test extends Application {
     public void start(Stage primaryStage) {
     	Grid grid = null;
 		try {
-			grid = new Grid("res/mapFiles/map1.txt", 8, 5);
+			grid = new Grid("res/mapFiles/map1.txt", 17, 13);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,7 +35,7 @@ public class Test extends Application {
         primaryStage.setTitle("test1");
         GameRoom room = new GameRoom(40);
         room.addObject(new TileSetTest());
-        room.addObject(new Student(64, 64, 640, 480));
+        room.addObject(new Student(32, 32, 32*17, 32*13, grid));
         room.start(primaryStage, 640, 480);
     }
 }
