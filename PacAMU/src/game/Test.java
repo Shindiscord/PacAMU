@@ -4,17 +4,19 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import amuEngine.graphics.*;
 import game.map.Grid;
+import game.map.TileManager;
+
 import java.io.IOException;
 
 import amuEngine.*;
 
-class TileSetTest implements amuGameObject{
+/*class TileSetTest implements amuGameObject{
 	private Sprite s = new SingleSprite(new Image("/img/tilesetTest.png")
 			,546, 418, 1);
 	public Sprite getSprite() {return this.s;}
 	public void update(long time) {
 	}
-}
+}*/
 
 public class Test extends Application {
     public static void main(String[] args) {
@@ -31,11 +33,11 @@ public class Test extends Application {
 			e.printStackTrace();
 		}
     	grid.print();
-        
         primaryStage.setTitle("test1");
         GameRoom room = new GameRoom(40);
-        room.addObject(new TileSetTest());
+        TileManager.placeTiles(room, grid, 32, 32);
+        //room.addObject(new TileSetTest())
         room.addObject(new Student(32, 32, 32*17, 32*13, grid));
-        room.start(primaryStage, 640, 480);
+        room.start(primaryStage, grid.getLargeur()*32,grid.getHauteur()*32);
     }
 }

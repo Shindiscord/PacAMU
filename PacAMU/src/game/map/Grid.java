@@ -2,6 +2,7 @@ package game.map;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -16,8 +17,24 @@ public class Grid {
 	private int largeur;
 	private int hauteur;
 	
+	public int getHauteur() {
+		return this.hauteur;
+	}
+	
+	public int getLargeur() {
+		return this.largeur;
+	}
+	
 	
 	public char getTile(int x, int y) {
+		if(x >= this.largeur)
+			x = 0;
+		if(x <= -1)
+			x = this.largeur-1;
+		if(y >= this.hauteur)
+			y = 0;
+		if(y <= -1)
+			y = this.hauteur-1;
 		return this.map[x][y];
 	}
 	
