@@ -5,11 +5,12 @@ import amuEngine.graphics.ChangeableSprite;
 import amuEngine.graphics.SingleSprite;
 import amuEngine.graphics.Sprite;
 import amuEngine.physics.MovableObject;
+import amuEngine.physics.UncontrollableObject;
 import game.map.Grid;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
-public abstract class Boar extends MovableObject implements amuGameObject {
+public abstract class Boar extends UncontrollableObject implements amuGameObject {
 
 	protected int colorIteration;
 	
@@ -28,15 +29,15 @@ public abstract class Boar extends MovableObject implements amuGameObject {
 			new Image("/img/Boar/boar_brown_l_46_30_5.png")
 			,46, 30, 5);
 	protected final SingleSprite upSprite = new SingleSprite(
-			new Image("/img/Boar/boar_brown_u_22_44_5.png")
-			,22, 44, 5);
+			new Image("/img/Boar/boar_brown_u_32_44_5.png")
+			,32, 44, 5);
 	
 	protected final SingleSprite rightSprite = new SingleSprite(
 			new Image("/img/Boar/boar_brown_r_46_30_5.png")
 			,46, 30, 5);
 	protected final SingleSprite downSprite = new SingleSprite(
-			new Image("/img/Boar/boar_brown_d_24_38_7.png")
-			,24, 36, 7);
+			new Image("/img/Boar/boar_brown_d_32_38_7.png")
+			,32, 36, 7);
 	
 	protected ChangeableSprite s;
 	protected int bordureH, bordureV;
@@ -137,7 +138,7 @@ public abstract class Boar extends MovableObject implements amuGameObject {
 			this.setPos(this.getX(), this.bordureV);
 		}
 				
-		this.s.setPosition(this.getX()-7, this.getY()-7);
+		this.s.setPosition(this.getX(), this.getY()-7);
 		this.updateSprite = !this.updateSprite;
 		if(this.updateSprite)
 			this.s.nextSubimage();

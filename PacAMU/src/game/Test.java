@@ -27,7 +27,7 @@ public class Test extends Application {
     public void start(Stage primaryStage) {
     	Grid grid = null;
 		try {
-			grid = new Grid("res/mapFiles/map1.txt", 17, 13);
+			grid = new Grid("res/mapFiles/map1.txt", 18, 14);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

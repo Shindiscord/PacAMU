@@ -69,7 +69,6 @@ public class Grid {
 		this.map = new char[x][y];
 		this.largeur = x;
 		this.hauteur = y;
-		
 		int c = 0; int i = 0; int j = 0;
 		
 		while((c = br.read()) != -1) {
