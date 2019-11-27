@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javafx.scene.input.KeyCode;
+
 public class Grid {
 
 	private File f;
@@ -15,16 +17,49 @@ public class Grid {
 	private int largeur;
 	private int hauteur;
 	
-	public int getLargeur() {
-		return this.largeur;
-	}
-	
 	public int getHauteur() {
 		return this.hauteur;
 	}
 	
+	public int getLargeur() {
+		return this.largeur;
+	}
+	
+	
 	public char getTile(int x, int y) {
+		if(x >= this.largeur)
+			x = 0;
+		if(x <= -1)
+			x = this.largeur-1;
+		if(y >= this.hauteur)
+			y = 0;
+		if(y <= -1)
+			y = this.hauteur-1;
 		return this.map[x][y];
+	}
+	
+	public boolean isAWall(int x, int y) {
+		if(x < 0 || x >= this.largeur || y < 0 || y >= this.hauteur)
+			return false;
+		if(this.map[x][y] == 'm')
+			return true;
+		return false;
+	}
+	
+	public boolean nextIsAWall(int x, int y, KeyCode direction) {
+		switch(direction) {
+			case UP:
+				return isAWall(x, y-1);
+			case DOWN:
+				return isAWall(x, y+1);
+			case LEFT:
+				return isAWall(x-1, y);
+			case RIGHT:
+				return isAWall(x+1, y);
+			default:
+				System.out.println("Not a direction for a wall");
+				return false;
+		}
 	}
 	
 	public Grid(String address, int x, int y) throws IOException {

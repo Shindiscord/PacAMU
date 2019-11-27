@@ -27,18 +27,18 @@ public class Test extends Application {
     public void start(Stage primaryStage) {
     	Grid grid = null;
 		try {
-			grid = new Grid("res/mapFiles/map1.txt", 8, 5);
+			grid = new Grid("res/mapFiles/map1.txt", 17, 13);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	grid.print();
-        
         primaryStage.setTitle("test1");
         GameRoom room = new GameRoom(40);
-        //room.addObject(new TileSetTest());
         TileManager.placeTiles(room, grid, 32, 32);
-        room.addObject(new Student(64, 64, 640, 480));
-        room.start(primaryStage, 640, 480);
+        //room.addObject(new TileSetTest())
+        room.addObject(new Student(32, 32, 32*17, 32*13, grid));
+        room.addObject(new BoarLvl1(32*3, 32, 32*17, 32*13,grid ,1));
+        room.start(primaryStage, grid.getLargeur()*32,grid.getHauteur()*32);
     }
 }

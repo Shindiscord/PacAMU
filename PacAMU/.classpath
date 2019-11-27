@@ -6,6 +6,6 @@
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry including="img/|mapFiles/" kind="src" path="res"/>
+	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -46,8 +46,8 @@ public class TileManager {
 				if ( grid.getTile(i, j) == '0') {
 					char above = grid.getTile(i, (j-1)%grid.getHauteur());
 					char below = grid.getTile(i, (j+1)%grid.getHauteur());
-					char right = grid.getTile((i+1)%grid.getLargeur(), j);
-					char  left = grid.getTile((i-1)%grid.getLargeur(), j);
+					char right = grid.getTile(((i+1)%grid.getLargeur()), j);
+					char  left = grid.getTile(((i-1)%grid.getLargeur()), j);
 								
 					//cas où tout les cotés sont des chemins
 					if( above != 'm' && below != 'm' && right != 'm' && left != 'm')
