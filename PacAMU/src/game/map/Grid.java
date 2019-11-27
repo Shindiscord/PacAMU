@@ -69,7 +69,6 @@ public class Grid {
 		this.map = new char[x][y];
 		this.largeur = x;
 		this.hauteur = y;
-		int nb_lignes = 0;
 		int c = 0; int i = 0; int j = 0;
 		
 		while((c = br.read()) != -1) {
@@ -88,7 +87,6 @@ public class Grid {
 				}
 			}
 		}
-		System.out.println("Nb lignes dans txt : " + nb_lignes);
 	}
 	
 	public void print() {
