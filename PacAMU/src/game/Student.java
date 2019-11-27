@@ -52,7 +52,7 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 		this.gridSize = 32;
 		this.currentDirection = KeyCode.RIGHT;
 		this.nextDirection = KeyCode.RIGHT;
-		this.setHspeed(5);
+		this.setHspeed(4);
 		this.bordureH = bordureH;
 		this.bordureV = bordureV;
 		this.map = map;
