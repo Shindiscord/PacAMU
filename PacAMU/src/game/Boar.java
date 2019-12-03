@@ -6,7 +6,6 @@ import amuEngine.graphics.SingleSprite;
 import amuEngine.graphics.Sprite;
 import amuEngine.physics.Collidable;
 import amuEngine.physics.MovableObject;
-import amuEngine.physics.UncontrollableObject;
 import game.map.Grid;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
