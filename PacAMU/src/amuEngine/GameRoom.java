@@ -48,6 +48,14 @@ public class GameRoom{
 		this.objectList.add(o);
 	}
 	
+	public void removeObject(amuGameObject o) {
+		if(o instanceof PhysicalObject)
+			pEngine.removeObject((PhysicalObject)o);
+		if(o instanceof KeyboardListener)
+			this.kManager.removeListener((KeyboardListener)o);
+		this.scene.removeSprite(o.getSprite());
+		this.objectList.remove(o);
+	}
 	
 	public void start(Stage window, int width, int height) {
 		window.setScene(new Scene(scene.getPane(), width, height));

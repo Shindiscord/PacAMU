@@ -1,17 +1,15 @@
 package amuEngine.physics;
 
 import java.util.ArrayList;
-import javafx.scene.shape.Rectangle;
 
 public class PhysicsEngine {
 	
 	ArrayList<PhysicalObject> objectList;
-	ArrayList<PhysicalObject> collectibleList;
-	PhysicalObject playerObject;
+	ArrayList<Collidable> collidableList;
 	
 	public PhysicsEngine(int refreshRate) {
 		this.objectList = new ArrayList<>();
-		this.collectibleList = new ArrayList<>();
+		this.collidableList = new ArrayList<>();
 	}
 
 	public void update(long msSinceLastCall) {
@@ -19,45 +17,40 @@ public class PhysicsEngine {
 			if(o instanceof MovableObject) {
 				((MovableObject)o).updatePos();
 			}
-			this.checkEntityCollisions();
-			this.checkCollection();
+			this.checkCollision();
 		}
 	}
 	public void addObject(PhysicalObject o) {
-		if(this.objectList.isEmpty()){
-			this.playerObject = o;
-		}
 		if(o instanceof MovableObject) 
 			this.objectList.add(o);
-		else if(o instanceof CollectibleObject)
-			this.collectibleList.add(o);
+		if(o instanceof Collidable)
+			this.collidableList.add((Collidable)o);
+			
+	}
+	
+	public void removeObject(PhysicalObject o) {
+		if(o instanceof MovableObject) {
+			objectList.remove(o);
+		}
+		if(o instanceof Collidable) {
+			collidableList.remove(o);
+		}
 	}
 
-	public int checkEntityCollisions(){
-		Rectangle playerBounds=this.playerObject.getBounds(); // Récupère les limites du sprite du joueur
-		for(PhysicalObject o: objectList){
-			if(o instanceof UncontrollableObject) { //Pour chaque ennemi
-				Rectangle entityBounds = o.getBounds(); //Recupere les limites du sprite
-				if((playerBounds.getBoundsInParent()).intersects(entityBounds.getBoundsInParent())) {
-					System.out.println("boop");
-					return 0;
-					//o.getFoe() ? this.playerObject.death() : this.playerObject.kill(); //Condition bonus/vanilla
+	public void checkCollision(){
+		for(int i = 0; i < collidableList.size()-1; i++) {
+			for(int j = 0; j < collidableList.size(); j++) {
+				Collidable c1 = collidableList.get(i);
+				Collidable c2 = collidableList.get(j);
+				
+				if(c1.getHitbox().getBoundsInParent().intersects(c2.getHitbox().getBoundsInParent())) {
+					c1.onCollide(c2);
+					c2.onCollide(c1);
 				}
-			}
-		}
-		return 1;
-	}
 
-	public int checkCollection(){
-		Rectangle playerBounds=this.playerObject.getBounds(); 
-		for(PhysicalObject o: collectibleList){
-			Rectangle itemBounds = o.getBounds(); 
-			if((playerBounds.getBoundsInParent()).intersects(itemBounds.getBoundsInParent())) {
-				return 0;
-				//this.playerObject.effect(o.getEffect()); 
 			}
 		}
-		return 1;
+		
 	}
 
 }
