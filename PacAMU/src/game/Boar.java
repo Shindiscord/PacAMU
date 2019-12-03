@@ -53,7 +53,7 @@ public abstract class Boar extends MovableObject implements amuGameObject, Colli
 	}
 	
 	public Rectangle getHitbox() {
-		return new Rectangle(this.getX(), this.getY(), 32, 32);
+		return new Rectangle(this.getX(), this.getY(), 16, 16);
 	}
 
 	
