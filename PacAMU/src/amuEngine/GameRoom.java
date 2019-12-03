@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import amuEngine.UI.GameScene;
 import amuEngine.UI.KeyboardManager;
+import amuEngine.UI.TextBox;
 import amuEngine.physics.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -55,6 +56,10 @@ public class GameRoom{
 			this.kManager.removeListener((KeyboardListener)o);
 		this.scene.removeSprite(o.getSprite());
 		this.objectList.remove(o);
+	}
+	
+	public void addText(TextBox tb) {
+		tb.addToScene(this.scene);
 	}
 	
 	public void start(Stage window, int width, int height) {
