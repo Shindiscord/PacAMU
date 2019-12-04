@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import amuEngine.amuGameObject;
+import game.Boots;
 import game.Coffee;
 import game.GameManager;
 import game.Student;
@@ -23,7 +24,12 @@ public class Grid {
 	private int hauteur;
 	
 	static final int TILE_SIZE = 32;
-	static final char NCOFFEE = '1';
+	static final char NSTUDENT = '1';
+	static final char NBOARLV1 = '2';
+	static final char NBOARLV2 = '3';
+	static final char NSHEET = '4';
+	static final char NCOFFEE = '5';
+	static final char NBOOTS = '6';
 	
 	public int getHauteur() {
 		return this.hauteur;
@@ -86,6 +92,10 @@ public class Grid {
 	public void pickCollectable(Student s, int x, int y) {
 		if(this.getObjectsMap(x, y) instanceof Coffee) {
 			s.setCoffeeState(true);
+			removeCollectable(x, y);
+		}
+		if(this.getObjectsMap(x, y) instanceof Boots) {
+			s.setBootsState(true);
 			removeCollectable(x, y);
 		}
 	}

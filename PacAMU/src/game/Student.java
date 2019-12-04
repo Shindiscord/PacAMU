@@ -19,9 +19,9 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	private KeyCode currentDirection;
 	private KeyCode nextDirection;
 	
-	private Grid map;
+	private int vies = 3;
 	
-	private boolean coffeePowa;
+	private Grid map;
 	
 	private double startingX;
 	private double startingY;
@@ -50,10 +50,20 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		return this.s;
 	}
 	
+	private boolean coffeePowa;
+	private boolean bootsPowa;
+	private boolean bootsPowaIsUsed;
+	
 	public void setCoffeeState(boolean state) {
 		this.coffeePowa = state;
 		if (state) System.out.println("L'étudiant s'excite");
 	}
+	
+	public void setBootsState(boolean state) {
+		this.bootsPowa = state;
+		if (state) System.out.println("L'étudiant mets des bottes");
+	}
+		
 	
 	Student(double x, double y, int bordureH, int bordureV, Grid map){
 		this.updateSprite = false;
@@ -70,6 +80,8 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		this.startingY = y;
 		this.map = map;
 		this.coffeePowa = false;
+		this.bootsPowa = false;
+		this.bootsPowaIsUsed = false;
 	}
 	
 	public Rectangle getHitbox() {
@@ -90,6 +102,8 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		case RIGHT:
 			this.nextDirection = KeyCode.RIGHT;
 			break;
+		case P:
+			GameManager.getCurrentRoom().pause();
 		default:
 			
 		}
@@ -101,8 +115,13 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	
 	public void onCollide(Collidable c) {
 		if(c instanceof Boar) {
-			//this.setPos(startingX, startingY);
-			GameManager.gameOver();
+			this.vies--;
+			if(this.vies > 0)
+				this.setPos(startingX, startingY);
+			else
+				GameManager.gameOver();
+			
+			System.out.println("Vies : " + this.vies);
 		}
 	}
 	
@@ -142,9 +161,16 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 				}
 			}
 			//Check for walls
-			if(this.map.nextIsAWall((int) currentGridX, (int)currentGridY, this.currentDirection)) {
+			if(bootsPowa == false && this.map.nextIsAWall((int) currentGridX, (int)currentGridY, this.currentDirection)) {
 				this.setVspeed(0);
 				this.setHspeed(0);
+			}
+			if(bootsPowa && this.map.getTile((int) currentGridX, (int) currentGridY) == 'm') {
+				this.bootsPowaIsUsed = true;
+			}
+			if(bootsPowa && bootsPowaIsUsed && this.map.getTile((int) currentGridX, (int) currentGridY) == '0') {
+				this.bootsPowa = false;
+				this.bootsPowaIsUsed = false;
 			}
 		}
 		//Checks for edges of screen

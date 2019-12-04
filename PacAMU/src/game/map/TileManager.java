@@ -3,6 +3,7 @@ package game.map;
 import java.util.Random;
 
 import amuEngine.GameRoom;
+import game.Boots;
 import game.Coffee;
 import game.GameManager;
 import javafx.scene.image.Image;
@@ -43,9 +44,10 @@ public class TileManager {
 					grid.setObjectsMap(i,j,new Coffee(i*tile_width, j*tile_height));
 					GameManager.getCurrentRoom().addObject(grid.getObjectsMap(i, j));
 				}
-			//	else if ( this.getTile(i, j) == NSHEET ) {
-				//	this.objects[i][j] = new Sheet(i*TILE_SIZE, j*TILE_SIZE);
-			//	}
+				else if( grid.getTile(i,j) == Grid.NBOOTS ) {
+					grid.setObjectsMap(i,j,new Boots(i*tile_width, j*tile_height));
+					GameManager.getCurrentRoom().addObject(grid.getObjectsMap(i, j));
+				}
 
 			}
 		}

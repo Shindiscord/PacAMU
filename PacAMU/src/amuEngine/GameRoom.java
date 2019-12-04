@@ -18,6 +18,8 @@ public class GameRoom{
 	private long prevTime = 0;
 	private KeyboardManager kManager;
 	
+	private boolean isPaused = false;
+	
 	private int width;
 	private int height;
 	
@@ -80,6 +82,15 @@ public class GameRoom{
 		this.height = height;
 		window.show();
 		
+	}
+	
+	public void pause() {
+		this.isPaused = !this.isPaused;
+		if(this.isPaused) {
+			this.timer.stop();
+		}else {
+			this.timer.start();
+		}
 	}
 	
 	public void stop() {
