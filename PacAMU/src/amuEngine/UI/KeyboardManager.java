@@ -1,6 +1,7 @@
 package amuEngine.UI;
 import java.util.ArrayList;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import amuEngine.KeyboardListener;
 
@@ -23,6 +24,7 @@ public class KeyboardManager {
 			}
 		});
 	}
+	
 	
 	public void addListener(KeyboardListener o) {
 		this.listeners.add(o);
