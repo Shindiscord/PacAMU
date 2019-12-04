@@ -65,7 +65,7 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 	}
 	
 	public Rectangle getHitbox() {
-		return new Rectangle(this.getX(), this.getY(), 32, 32);
+		return new Rectangle(this.getX(), this.getY(), 20, 20);
 	}
 	
 	public void onKeyPressed(KeyCode key) {
@@ -93,7 +93,8 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 	
 	public void onCollide(Collidable c) {
 		if(c instanceof Boar) {
-			this.setPos(startingX, startingY);
+			//this.setPos(startingX, startingY);
+			GameManager.gameOver();
 		}
 	}
 	
