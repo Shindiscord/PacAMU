@@ -1,6 +1,7 @@
 package amuEngine.UI;
 
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -15,6 +16,10 @@ public class TextBox {
 	
 	public void setText(String text) {
 		javafxText.setText(text);
+	}
+	
+	public void setColor(Color c) {
+		this.javafxText.setFill(c);
 	}
 	
 	public void remove() {

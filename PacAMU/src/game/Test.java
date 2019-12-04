@@ -1,6 +1,7 @@
 package game;
 import javafx.application.Application;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import amuEngine.graphics.*;
 import game.map.Grid;
@@ -26,6 +27,7 @@ public class Test extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+    	/*
     	Grid grid = null;
 		try {
 			grid = new Grid("res/mapFiles/map1.txt", 18, 14);
@@ -44,6 +46,8 @@ public class Test extends Application {
         tb.setText("AHIOHAOIBFOZA");
         tb.setSize(20);
         room.addText(tb);
-        room.start(primaryStage, grid.getLargeur()*32,grid.getHauteur()*32);
+        room.start(primaryStage, grid.getLargeur()*32,grid.getHauteur()*32);*/
+    	GameManager.init(primaryStage);
+    	GameManager.startGame();
     }
 }

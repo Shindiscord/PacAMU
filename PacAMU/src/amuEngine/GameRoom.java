@@ -66,7 +66,10 @@ public class GameRoom{
 		window.setScene(new Scene(scene.getPane(), width, height));
 		this.kManager.start(window);
 		timer.start();
+		this.width = width;
+		this.height = height;
 		window.show();
+		
 	}
 	
 	public void stop() {

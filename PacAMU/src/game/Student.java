@@ -70,8 +70,9 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 		this.map = map;
 	}
 	
+
 	public Rectangle getHitbox() {
-		return new Rectangle(this.getX(), this.getY(), 32, 32);
+		return new Rectangle(this.getX(), this.getY(), 20, 20);
 	}
 	
 	public void onKeyPressed(KeyCode key) {
