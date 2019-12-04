@@ -46,6 +46,15 @@ public class ButtonRestart extends Clickable {
         stud.setlifeText(tb);
         
         chapter1.addText(tb);
+        
+        ButtonRestart restart = new ButtonRestart("restart");
+        restart.addToRoom(chapter1);
+        restart.setPos(500, 400);
+        
+        ButtonBack back = new ButtonBack("back");
+        back.addToRoom(chapter1);
+        back.setPos(400, 400);
+        
         GameManager.changeRoom(chapter1);
 	}
 }

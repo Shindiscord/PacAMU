@@ -39,6 +39,9 @@ public abstract class GameManager {
 		restart.addToRoom(gameOverRoom);
 		restart.setPos(270, 250);
 		restart.getButton().setMaxSize(100, 50);
+        ButtonBack back = new ButtonBack("back");
+        back.addToRoom(gameOverRoom);
+        back.setPos(400, 400);
 		gameOverRoom.start(_window,currentRoom.getWidth() , currentRoom.getHeight());
 		
 		currentRoom = gameOverRoom;
@@ -68,6 +71,7 @@ public abstract class GameManager {
         ButtonQuitGame quitGame = new ButtonQuitGame(new Image("/img/buttons/quitGame.png"));
         ButtonCharacterM characterMale = new ButtonCharacterM("Male");
         ButtonCharacterF characterFemale = new ButtonCharacterF("Female");
+        
     	gameMenu.addBackground(new Image("/img/fond.png"));
         chapter1.setPos(210, 150);
         instructions.setPos(180, 250);
