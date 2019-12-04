@@ -94,4 +94,5 @@ public abstract class GameManager {
         room.addText(lifeText);
         room.start(_window, grid.getLargeur()*32, grid.getHauteur()*32);
 	}
+	
 }
