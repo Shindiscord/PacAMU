@@ -16,8 +16,14 @@ public abstract class GameManager {
 	
 	private static GameRoom currentRoom;
 	
+	private static int score = 0;
+	
 	public static GameRoom getCurrentRoom() {
 		return currentRoom;
+	}
+	
+	public static void addScore(int n) {
+		score += n;
 	}
 	
 	public static void gameOver() {

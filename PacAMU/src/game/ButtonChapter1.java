@@ -44,8 +44,10 @@ public class ButtonChapter1 extends Clickable{
         tb.setText("Vie :");
         tb.setPos(20, 420);
         tb.setSize(20);
+        stud.setlifeText(tb);
         
         chapter1.addText(tb);
         GameManager.changeRoom(chapter1);
+        
 	}
 }
