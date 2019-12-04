@@ -2,6 +2,7 @@ package game;
 
 import amuEngine.graphics.*;
 import amuEngine.*;
+import amuEngine.UI.TextBox;
 import amuEngine.physics.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -28,6 +29,8 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	
 	private double prevGridX;
 	private double prevGridY;
+	
+	private TextBox lifeText;
 	
 	private final SingleSprite leftSprite = new SingleSprite(
 			new Image("/img/Player/male_l_30_51_8.png")
@@ -68,6 +71,12 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	public void setBootsState(boolean state) {
 		this.bootsPowa = state;
 		if (state) System.out.println("L'étudiant mets des bottes");
+	}
+	
+	
+	public void setlifeText(TextBox t) {
+		this.lifeText = t;
+		t.setText("Vies : " + this.vies);
 	}
 		
 	
@@ -128,9 +137,10 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 			}
 			else {
 				this.vies--;
-				if(this.vies > 0)
+				if(this.vies > 0) {
 					this.setPos(startingX, startingY);
-				else
+					this.lifeText.setText("Vies : " + this.vies);
+				}else
 					GameManager.gameOver();
 			
 				System.out.println("Vies : " + this.vies);
