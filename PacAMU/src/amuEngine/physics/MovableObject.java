@@ -1,5 +1,7 @@
 package amuEngine.physics;
 
+import javafx.scene.shape.Rectangle;
+
 public class MovableObject implements PhysicalObject {
 	private double x;
 	private double y;
@@ -26,6 +28,11 @@ public class MovableObject implements PhysicalObject {
 	public double getY() {
 		return this.y;
 	}
+
+	public Rectangle getBounds(){
+		Rectangle r = new Rectangle(this.x,this.y, 25, 25);
+		return r;
+    }
 	
 	public void updatePos() {
 		this.x += hspeed;

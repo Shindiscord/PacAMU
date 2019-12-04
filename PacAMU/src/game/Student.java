@@ -5,17 +5,28 @@ import amuEngine.*;
 import amuEngine.physics.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Rectangle;
 
 import java.lang.Math;
+import game.map.Grid;
 
 
-class Student  extends MovableObject implements amuGameObject, KeyboardListener{
+public class Student  extends MovableObject implements amuGameObject, KeyboardListener, Collidable{
 	
 	private double gridSize;
 	private boolean updateSprite;
 	
 	private KeyCode currentDirection;
 	private KeyCode nextDirection;
+	
+	private int vies = 3;
+	
+	private Grid map;
+	
+	private boolean coffeePowa;
+	
+	private double startingX;
+	private double startingY;
 	
 	private double prevGridX;
 	private double prevGridY;
@@ -41,7 +52,16 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 		return this.s;
 	}
 	
-	Student(double x, double y, int bordureH, int bordureV){
+	public int getLife() {
+		return vies;
+	}
+	
+	public void setCoffeeState(boolean state) {
+		this.coffeePowa = state;
+		if (state) System.out.println("L'étudiant s'excite");
+	}
+	
+	Student(double x, double y, int bordureH, int bordureV, Grid map){
 		this.updateSprite = false;
 		s =  new ChangeableSprite(rightSprite);
 		s.setPosition(x, y);
@@ -49,9 +69,17 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 		this.gridSize = 32;
 		this.currentDirection = KeyCode.RIGHT;
 		this.nextDirection = KeyCode.RIGHT;
-		this.setHspeed(5);
+		this.setHspeed(4);
 		this.bordureH = bordureH;
 		this.bordureV = bordureV;
+		this.startingX = x;
+		this.startingY = y;
+		this.map = map;
+		this.coffeePowa = false;
+	}
+	
+	public Rectangle getHitbox() {
+		return new Rectangle(this.getX(), this.getY(), 20, 20);
 	}
 	
 	public void onKeyPressed(KeyCode key) {
@@ -68,6 +96,8 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 		case RIGHT:
 			this.nextDirection = KeyCode.RIGHT;
 			break;
+		case P:
+			GameManager.getCurrentRoom().pause();
 		default:
 			
 		}
@@ -77,50 +107,60 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 
 	}
 	
+	public void onCollide(Collidable c) {
+		if(c instanceof Boar) {
+			this.vies--;
+			if(this.vies > 0)
+				this.setPos(startingX, startingY);
+			else
+				GameManager.gameOver();
+			
+			System.out.println("Vies : " + this.vies);
+		}
+	}
+	
 	public void update(long msSinceLastCall){
 		
 		double currentGridX = Math.floor(this.getX()/this.gridSize);
 		double currentGridY = Math.floor(this.getY()/this.gridSize);
 		
-		if(this.currentDirection == KeyCode.LEFT) {
-			currentGridX += 1.0;
-		}
-		if(this.currentDirection == KeyCode.UP) {
-			currentGridY += 1.0 ;
-		}
+		//check collectables
+		this.map.pickCollectable(this, (int) (this.getX()/this.gridSize), (int) (this.getY()/this.gridSize));
 		
-		if(currentGridX != this.prevGridX || currentGridY != this.prevGridY) {
+		if((this.getX()%this.gridSize == 0 && this.getY()%this.gridSize == 0)){
 			if(this.currentDirection != this.nextDirection) {
-				this.setPos(currentGridX*this.gridSize,currentGridY*this.gridSize);
 				this.currentDirection = this.nextDirection;
 				switch(this.nextDirection) {
 					case UP:
-						this.setVspeed(-5);
+						this.setVspeed(-4);
 						this.setHspeed(0);
 						this.s.switchTo(upSprite);
 						break;
 					case DOWN:
-						this.setVspeed(5);
+						this.setVspeed(4);
 						this.setHspeed(0);
 						this.s.switchTo(downSprite);
 						break;
 					case LEFT:
-						this.setHspeed(-5);
+						this.setHspeed(-4);
 						this.setVspeed(0);
 						this.s.switchTo(leftSprite);
 						break;
 					case RIGHT:
-						this.setHspeed(5);
+						this.setHspeed(4);
 						this.setVspeed(0);
 						this.s.switchTo(rightSprite);
 						break;
 					default:
 				}
 			}
-			this.prevGridX = currentGridX;
-			this.prevGridY = currentGridY;
-			
+			//Check for walls
+			if(this.map.nextIsAWall((int) currentGridX, (int)currentGridY, this.currentDirection)) {
+				this.setVspeed(0);
+				this.setHspeed(0);
+			}
 		}
+		//Checks for edges of screen
 		if(this.getX() >= this.bordureH+1) {
 			this.setPos(0, this.getY());
 		}
@@ -133,6 +173,10 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 		if(this.getY() <= -1) {
 			this.setPos(this.getX(), this.bordureV);
 		}
+		
+		
+		
+		
 		this.s.setPosition(this.getX(), this.getY()-20);
 		this.updateSprite = !this.updateSprite;
 		if(this.updateSprite)
