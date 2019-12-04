@@ -2,7 +2,10 @@ package game;
 
 import java.util.Random;
 
+import amuEngine.graphics.ChangeableSprite;
+import amuEngine.graphics.SingleSprite;
 import game.map.Grid;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
 public class BoarLvl1 extends Boar {

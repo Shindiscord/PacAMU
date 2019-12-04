@@ -61,7 +61,7 @@ public abstract class GameManager {
         Student stud = new Student(32, 32, 32*17, 32*13, grid);
         room.addObject(stud);
         room.addObject(new BoarLvl2(32*7, 32*4, 32*17, 32*13,grid ,1, stud));
-        //room.addObject(new BoarLvl1(32*8, 32*4, 32*17, 32*13,grid ,1));
+        room.addObject(new BoarLvl1(32*8, 32*4, 32*17, 32*13,grid ,1));
         TextBox tb = new TextBox(100,100);
         tb.setText("AHIOHAOIBFOZA");
         tb.setSize(20);
