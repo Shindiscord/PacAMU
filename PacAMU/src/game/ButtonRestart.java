@@ -1,29 +1,26 @@
 package game;
 
 import java.io.IOException;
+import javafx.scene.image.Image;
 
 import amuEngine.GameRoom;
 import amuEngine.UI.Clickable;
 import amuEngine.UI.TextBox;
 import game.map.Grid;
 import game.map.TileManager;
-import javafx.scene.image.Image;
 
-public class ButtonChapter1 extends Clickable{
-
+public class ButtonRestart extends Clickable {
 	
-	
-	public ButtonChapter1(String name) {
+	public ButtonRestart(String name) {
 		super(name);
-		this.button.setMaxSize(220, 50);
+		this.button.setMaxSize(60, 10);
 	}
 	
-	public ButtonChapter1(Image img) {
+	public ButtonRestart(Image img) {
 		super(img);
-		this.button.setMaxSize(220, 50);
+		this.button.setMaxSize(60, 10);
 	}
-	
-	
+
 	public void onClick() {
 		GameRoom chapter1 = new GameRoom(40);
         
@@ -49,11 +46,6 @@ public class ButtonChapter1 extends Clickable{
         stud.setlifeText(tb);
         
         chapter1.addText(tb);
-        ButtonChapter1 restart = new ButtonChapter1("restart");
-		restart.addToRoom(chapter1);
-		restart.setPos(450, 410);
-		restart.getButton().setMaxSize(100, 30);
         GameManager.changeRoom(chapter1);
-        
 	}
 }

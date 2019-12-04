@@ -18,8 +18,6 @@ public abstract class GameManager {
 	
 	private static int score = 0;
 	
-	private static TextBox scoreText;
-	
 	public static GameRoom getCurrentRoom() {
 		return currentRoom;
 	}
@@ -37,6 +35,10 @@ public abstract class GameManager {
 		tb.setColor(Color.DARKRED);
 		tb.setSize(40);
 		gameOverRoom.addText(tb);
+		ButtonRestart restart = new ButtonRestart("restart");
+		restart.addToRoom(gameOverRoom);
+		restart.setPos(270, 250);
+		restart.getButton().setMaxSize(100, 50);
 		gameOverRoom.start(_window,currentRoom.getWidth() , currentRoom.getHeight());
 		
 		currentRoom = gameOverRoom;
@@ -52,16 +54,10 @@ public abstract class GameManager {
 		_window = window;
 	}
 	
-	/*
-	public int getScore() {
-		return this.score;
-	}
 	
-	public void setScoreText(TextBox t) {
-		this.scoreText = t;
-		t.setText("Score : " + this.getScore());
-		
-	}*/
+	public static int getScore() {
+		return score;
+	}
 	
 	public static void startGame() {
 
