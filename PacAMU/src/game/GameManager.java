@@ -8,6 +8,7 @@ import game.map.Grid;
 import game.map.TileManager;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 public abstract class GameManager {
 	
@@ -15,15 +16,8 @@ public abstract class GameManager {
 	
 	private static GameRoom currentRoom;
 	
-	private static int score;
-	
 	public static GameRoom getCurrentRoom() {
 		return currentRoom;
-	}
-	
-	public static void addScore(int i) {
-		score += i;
-		System.out.println("Score : " + score);
 	}
 	
 	public static void gameOver() {
@@ -52,46 +46,22 @@ public abstract class GameManager {
 	public static void startGame() {
 
 		_window.setTitle("test1");
-		score = 0;
-        GameRoom room = new GameRoom(40);
-        currentRoom = room;
-    	Grid grid = null;
-		try {
-			grid = new Grid("res/mapFiles/map1.txt", 18, 14);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	grid.print();
-    	
-        TileManager.placeTiles(room, grid, 32, 32);
-        TileManager.placeCollectables(room, grid, 32, 32);
-        Student stud = null;
-        
-        for(int i=0 ; i<grid.getLargeur() ; i++) {
-        	for(int j=0 ; j<grid.getHauteur() ; j++) {
-        		if(grid.getTile(i, j) == '1') {
-        	        stud = new Student(32*i, 32*j, 32*17, 32*13, grid);
-        	        room.addObject(stud);	
-        		}
-        	}
-        }
-        for(int i=0 ; i<grid.getLargeur() ; i++) {
-        	for(int j=0 ; j<grid.getHauteur() ; j++) {
-        		if(grid.getTile(i, j) == '2') {
-        			room.addObject(new BoarLvl1(32*i, 32*j, 32*17, 32*13,grid ,1));			
-        		}
-        		else if(grid.getTile(i, j) == '3') {
-        			room.addObject(new BoarLvl2(32*i, 32*j, 32*17, 32*13,grid ,1, stud));			
-        		}
-        	}
-        }
-        
-        TextBox lifeText = new TextBox(20,420);
-        lifeText.setSize(20);
-        stud.setlifeText(lifeText);
-        
-        room.addText(lifeText);
-        room.start(_window, grid.getLargeur()*32, grid.getHauteur()*32);
+        GameRoom gameMenu = new GameRoom(40);
+        ButtonChapter1 chapter1 = new ButtonChapter1(new Image("/img/buttons/chapter1.png"));
+        ButtonInstruction instructions = new ButtonInstruction(new Image("/img/buttons/instructions.png"));
+        ButtonQuitGame quitGame = new ButtonQuitGame(new Image("/img/buttons/quitGame.png"));
+        chapter1.setPos(230, 100);
+        instructions.setPos(230, 200);
+        quitGame.setPos(230,300);
+        currentRoom = gameMenu;
+        chapter1.addToRoom(gameMenu);
+        instructions.addToRoom(gameMenu);
+        quitGame.addToRoom(gameMenu);
+        gameMenu.start(_window, 640, 480);
+        //room.start(_window, grid.getLargeur()*32, grid.getHauteur()*32);
+	}
+	
+	public static void quitGame() {
+		_window.close();
 	}
 }

@@ -3,6 +3,7 @@ package game.map;
 import java.util.Random;
 
 import amuEngine.GameRoom;
+<<<<<<< HEAD
 import game.Boots;
 import game.Coffee;
 import game.GameManager;
@@ -53,6 +54,51 @@ public class TileManager {
 					grid.setObjectsMap(i,j,new Sheet(i*tile_width, j*tile_height));
 					GameManager.getCurrentRoom().addObject(grid.getObjectsMap(i, j));
 				}
+=======
+import game.Coffee;
+import game.GameManager;
+import javafx.scene.image.Image;
+
+public class TileManager {
+
+	static Image[] grass = new Image[6];;		
+
+	static Image ground_basic = new Image("/img/Ground/Walkable/basic.png");
+	static Image ground_u = new Image("/img/Ground/Walkable/u.png");
+	static Image ground_l = new Image("/img/Ground/Walkable/l.png");
+	static Image ground_r = new Image("/img/Ground/Walkable/r.png");
+	static Image ground_d = new Image("/img/Ground/Walkable/d.png");
+	static Image ground_dlu = new Image("/img/Ground/Walkable/dlu.png");
+	static Image ground_dr = new Image("/img/Ground/Walkable/dr.png");
+	static Image ground_ld = new Image("/img/Ground/Walkable/ld.png");
+	static Image ground_ldr = new Image("/img/Ground/Walkable/ldr.png");
+	static Image ground_lr = new Image("/img/Ground/Walkable/lr.png");
+	static Image ground_lu = new Image("/img/Ground/Walkable/lu.png");
+	static Image ground_lur = new Image("/img/Ground/Walkable/lur.png");
+	static Image ground_ud = new Image("/img/Ground/Walkable/ud.png");
+	static Image ground_ur = new Image("/img/Ground/Walkable/ur.png");
+	static Image ground_urd = new Image("/img/Ground/Walkable/urd.png");
+
+
+	
+	private static void init() {
+		for( int i=1 ; i<7 ; i++ ) {
+			String name = "/img/Ground/Unwalkable/grass" + i + ".png";
+			TileManager.grass[i-1] = new Image(name);
+		}
+	}
+	
+	public static void placeCollectables(GameRoom room, Grid grid, int tile_width, int tile_height) {
+		for( int i=0 ; i<grid.getLargeur() ; i++) {
+			for( int j=0 ; j<grid.getHauteur() ; j++) {
+				if( grid.getTile(i,j) == Grid.NCOFFEE ) {
+					grid.setObjectsMap(i,j,new Coffee(i*tile_width, j*tile_height));
+					GameManager.getCurrentRoom().addObject(grid.getObjectsMap(i, j));
+				}
+			//	else if ( this.getTile(i, j) == NSHEET ) {
+				//	this.objects[i][j] = new Sheet(i*TILE_SIZE, j*TILE_SIZE);
+			//	}
+>>>>>>> refs/remotes/origin/Alix
 
 			}
 		}

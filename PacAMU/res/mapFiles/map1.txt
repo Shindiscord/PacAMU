@@ -1,4 +1,5 @@
 mmmmmmmm0mmmmmmmmm
+<<<<<<< HEAD
 m040404050404040mm
 m4mmm0mmmmmmmmm4mm
 m000000010000000mm
@@ -10,5 +11,18 @@ m4mmmmmm0mm0mmm4mm
 m000000030000000mm
 m4mmmmmmmmm0mmm4mm
 m040404050424040mm
+=======
+m000000010000000mm
+m0mmm0mmmmmmmmm0mm
+m000000000000000mm
+m0mmm0mm0mmmmmm0mm
+m0mmm0mm0mm0mmm0mm
+00mm000010000mm000
+m0mmm0mm0mm0mmm0mm
+m0mmmmmm0mm0mmm0mm
+m000000000000000mm
+m0mmmmmmmmm0mmm0mm
+m000000010000000mm
+>>>>>>> refs/remotes/origin/Alix
 mmmmmmmm0mmmmmmmmm
 mmmmmmmm0mmmmmmmmm

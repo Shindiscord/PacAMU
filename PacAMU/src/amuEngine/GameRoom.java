@@ -9,6 +9,7 @@ import amuEngine.physics.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 public class GameRoom{
 	private GameScene scene;
@@ -74,6 +75,10 @@ public class GameRoom{
 	
 	public void addText(TextBox tb) {
 		tb.addToScene(this.scene);
+	}
+	
+	public void addButton(Button b) {
+		this.scene.getPane().getChildren().add(b);
 	}
 	
 	public void start(Stage window, int width, int height) {
