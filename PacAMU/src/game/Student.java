@@ -19,6 +19,8 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 	private KeyCode currentDirection;
 	private KeyCode nextDirection;
 	
+	private int vies = 3;
+	
 	private Grid map;
 	
 	private double startingX;
@@ -82,6 +84,8 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 		case RIGHT:
 			this.nextDirection = KeyCode.RIGHT;
 			break;
+		case P:
+			GameManager.getCurrentRoom().pause();
 		default:
 			
 		}
@@ -93,8 +97,13 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 	
 	public void onCollide(Collidable c) {
 		if(c instanceof Boar) {
-			//this.setPos(startingX, startingY);
-			GameManager.gameOver();
+			this.vies--;
+			if(this.vies > 0)
+				this.setPos(startingX, startingY);
+			else
+				GameManager.gameOver();
+			
+			System.out.println("Vies : " + this.vies);
 		}
 	}
 	
