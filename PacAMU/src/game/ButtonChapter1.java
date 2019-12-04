@@ -27,7 +27,7 @@ public class ButtonChapter1 extends Clickable{
         
     	Grid grid = null;
 		try {
-			grid = new Grid("res/mapFiles/map1.txt", 18, 14);
+			grid = new Grid("res/mapFiles/map1.txt", 19, 14);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,10 +36,10 @@ public class ButtonChapter1 extends Clickable{
     	
         TileManager.placeTiles(chapter1, grid, 32, 32);
         TileManager.placeCollectables(chapter1, grid, 32, 32);
-        Student stud = new Student(32, 32, 32*17, 32*13, grid);
+        Student stud = new Student(64, 32, 32*18, 32*13, grid);
         chapter1.addObject(stud);
-        chapter1.addObject(new BoarLvl2(32*7, 32*4, 32*17, 32*13,grid ,1, stud));
-        chapter1.addObject(new BoarLvl1(32*8, 32*4, 32*17, 32*13,grid ,1));
+        chapter1.addObject(new BoarLvl2(32*7, 32*4, 32*18, 32*13,grid ,1, stud));
+        chapter1.addObject(new BoarLvl1(32*8, 32*4, 32*18, 32*13,grid ,1));
         TextBox tb = new TextBox(100,100);
         tb.setText("Vie :");
         tb.setPos(20, 420);
