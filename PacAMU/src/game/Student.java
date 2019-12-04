@@ -11,7 +11,7 @@ import java.lang.Math;
 import game.map.Grid;
 
 
-class Student  extends MovableObject implements amuGameObject, KeyboardListener, Collidable{
+public class Student  extends MovableObject implements amuGameObject, KeyboardListener, Collidable{
 	
 	private double gridSize;
 	private boolean updateSprite;
@@ -22,6 +22,8 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 	private int vies = 3;
 	
 	private Grid map;
+	
+	private boolean coffeePowa;
 	
 	private double startingX;
 	private double startingY;
@@ -50,6 +52,11 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 		return this.s;
 	}
 	
+	public void setCoffeeState(boolean state) {
+		this.coffeePowa = state;
+		if (state) System.out.println("L'étudiant s'excite");
+	}
+	
 	Student(double x, double y, int bordureH, int bordureV, Grid map){
 		this.updateSprite = false;
 		s =  new ChangeableSprite(rightSprite);
@@ -64,6 +71,7 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 		this.startingX = x;
 		this.startingY = y;
 		this.map = map;
+		this.coffeePowa = false;
 	}
 	
 	public Rectangle getHitbox() {
@@ -112,7 +120,8 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 		double currentGridX = Math.floor(this.getX()/this.gridSize);
 		double currentGridY = Math.floor(this.getY()/this.gridSize);
 		
-		
+		//check collectables
+		this.map.pickCollectable(this, (int) (this.getX()/this.gridSize), (int) (this.getY()/this.gridSize));
 		
 		if((this.getX()%this.gridSize == 0 && this.getY()%this.gridSize == 0)){
 			if(this.currentDirection != this.nextDirection) {
