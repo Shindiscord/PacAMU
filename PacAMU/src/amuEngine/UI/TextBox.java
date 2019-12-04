@@ -40,7 +40,7 @@ public class TextBox {
 	}
 	
 	public void setSize(int size) {
-		this.javafxText.setFont(new Font(size));
+		this.javafxText.setFont(new Font("Arial Bold", size));
 	}
 	
 }

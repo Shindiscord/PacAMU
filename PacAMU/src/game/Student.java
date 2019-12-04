@@ -2,6 +2,7 @@ package game;
 
 import amuEngine.graphics.*;
 import amuEngine.*;
+import amuEngine.UI.TextBox;
 import amuEngine.physics.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -20,6 +21,8 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	private KeyCode nextDirection;
 	
 	private int vies = 3;
+	
+	private TextBox lifeText;
 	
 	private Grid map;
 	
@@ -55,6 +58,11 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	public void setCoffeeState(boolean state) {
 		this.coffeePowa = state;
 		if (state) System.out.println("L'étudiant s'excite");
+	}
+	
+	public void setLifeText(TextBox tb) {
+		this.lifeText = tb;
+		tb.setText("Vies : " + this.vies);
 	}
 	
 	Student(double x, double y, int bordureH, int bordureV, Grid map){
@@ -106,12 +114,12 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	public void onCollide(Collidable c) {
 		if(c instanceof Boar) {
 			this.vies--;
-			if(this.vies > 0)
+			if(this.vies > 0) {
 				this.setPos(startingX, startingY);
-			else
+				if(this.lifeText != null)
+					this.lifeText.setText("Vies : " + this.vies);
+			}else
 				GameManager.gameOver();
-			
-			System.out.println("Vies : " + this.vies);
 		}
 	}
 	
