@@ -51,11 +51,17 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	}
 	
 	private boolean coffeePowa;
+	private long coffeePowaUsage;
 	private boolean bootsPowa;
 	private boolean bootsPowaIsUsed;
 	
+	public boolean getCoffeePowaState() {
+		return coffeePowa;
+	}
+	
 	public void setCoffeeState(boolean state) {
 		this.coffeePowa = state;
+		if (state) coffeePowaUsage = 5_000;
 		if (state) System.out.println("L'étudiant s'excite");
 	}
 	
@@ -82,6 +88,7 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		this.coffeePowa = false;
 		this.bootsPowa = false;
 		this.bootsPowaIsUsed = false;
+		this.coffeePowaUsage = 0;
 	}
 	
 	public Rectangle getHitbox() {
@@ -115,17 +122,31 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	
 	public void onCollide(Collidable c) {
 		if(c instanceof Boar) {
-			this.vies--;
-			if(this.vies > 0)
-				this.setPos(startingX, startingY);
-			else
-				GameManager.gameOver();
+			if ( coffeePowa ) {
+				GameManager.addScore(500);
+				GameManager.getCurrentRoom().removeObject((amuGameObject) c); 
+			}
+			else {
+				this.vies--;
+				if(this.vies > 0)
+					this.setPos(startingX, startingY);
+				else
+					GameManager.gameOver();
 			
-			System.out.println("Vies : " + this.vies);
+				System.out.println("Vies : " + this.vies);
+			}
 		}
 	}
 	
 	public void update(long msSinceLastCall){
+		
+		if ( coffeePowa ) {
+			coffeePowaUsage -= msSinceLastCall;
+			if(coffeePowaUsage <= 0) {
+				coffeePowaUsage = 0;
+				setCoffeeState(false);
+			}
+		}
 		
 		double currentGridX = Math.floor(this.getX()/this.gridSize);
 		double currentGridY = Math.floor(this.getY()/this.gridSize);

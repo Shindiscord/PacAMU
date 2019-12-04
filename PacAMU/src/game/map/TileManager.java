@@ -6,6 +6,7 @@ import amuEngine.GameRoom;
 import game.Boots;
 import game.Coffee;
 import game.GameManager;
+import game.Sheet;
 import javafx.scene.image.Image;
 
 public class TileManager {
@@ -46,6 +47,10 @@ public class TileManager {
 				}
 				else if( grid.getTile(i,j) == Grid.NBOOTS ) {
 					grid.setObjectsMap(i,j,new Boots(i*tile_width, j*tile_height));
+					GameManager.getCurrentRoom().addObject(grid.getObjectsMap(i, j));
+				}
+				else if ( grid.getTile(i, j) == Grid.NSHEET) {
+					grid.setObjectsMap(i,j,new Sheet(i*tile_width, j*tile_height));
 					GameManager.getCurrentRoom().addObject(grid.getObjectsMap(i, j));
 				}
 

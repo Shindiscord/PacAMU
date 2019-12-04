@@ -10,6 +10,7 @@ import amuEngine.amuGameObject;
 import game.Boots;
 import game.Coffee;
 import game.GameManager;
+import game.Sheet;
 import game.Student;
 import javafx.scene.input.KeyCode;
 
@@ -97,6 +98,10 @@ public class Grid {
 		if(this.getObjectsMap(x, y) instanceof Boots) {
 			s.setBootsState(true);
 			removeCollectable(x, y);
+		}
+		if(this.getObjectsMap(x, y) instanceof Sheet) {
+			GameManager.addScore(100);
+			removeCollectable(x,y);
 		}
 	}
 	

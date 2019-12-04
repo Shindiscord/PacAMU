@@ -37,15 +37,17 @@ public class GameRoom{
 		this.objectList = new ArrayList<>();
 		this.timer = new AnimationTimer() {
             public void handle(long currentNanoTime){
-            	if(prevTime == 0)
-            		prevTime = currentNanoTime;
-            	if((currentNanoTime - prevTime)/1000000 >= 1000/refreshRate){
-            		for(amuGameObject o: objectList) {
-            			o.update((currentNanoTime-prevTime)/1000000);
-            		}            		
-            		pEngine.update((currentNanoTime-prevTime)/1000000);
-            		prevTime = currentNanoTime;
-            	}
+            	try{
+            		if(prevTime == 0)
+            			prevTime = currentNanoTime;
+            		if((currentNanoTime - prevTime)/1000000 >= 1000/refreshRate){
+            			for(amuGameObject o: objectList) {
+            				o.update((currentNanoTime-prevTime)/1000000);
+            			}            		
+            			pEngine.update((currentNanoTime-prevTime)/1000000);
+            			prevTime = currentNanoTime;
+            		}
+            	} catch ( java.util.ConcurrentModificationException exception) {  }
             }
 		};
 		
