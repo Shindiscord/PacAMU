@@ -12,7 +12,6 @@ public class KeyboardManager {
 	}
 	
 	public void start(Stage scene) {
-		System.out.println("MAnager started " + this.listeners.size());
 		scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
 			for(KeyboardListener l:listeners) {
 				l.onKeyPressed(key.getCode());
