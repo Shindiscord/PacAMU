@@ -21,11 +21,6 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 	
 	private Grid map;
 	
-	private boolean CLASSIC_STATE;
-	private boolean COFFEE_STATE;
-	private boolean NO_WALLS_STATE;
-	private boolean LITTLE_STATE;
-		
 	private double startingX;
 	private double startingY;
 	
@@ -54,7 +49,6 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 	}
 	
 	Student(double x, double y, int bordureH, int bordureV, Grid map){
-		
 		this.updateSprite = false;
 		s =  new ChangeableSprite(rightSprite);
 		s.setPosition(x, y);
@@ -70,7 +64,6 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 		this.map = map;
 	}
 	
-
 	public Rectangle getHitbox() {
 		return new Rectangle(this.getX(), this.getY(), 20, 20);
 	}
@@ -100,7 +93,8 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener,
 	
 	public void onCollide(Collidable c) {
 		if(c instanceof Boar) {
-			this.setPos(startingX, startingY);
+			//this.setPos(startingX, startingY);
+			GameManager.gameOver();
 		}
 	}
 	

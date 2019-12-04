@@ -39,7 +39,6 @@ public class Test extends Application {
         primaryStage.setTitle("test1");
         GameRoom room = new GameRoom(40);
         TileManager.placeTiles(room, grid, 32, 32);
-        //room.addObject(new TileSetTest())
         room.addObject(new Student(32, 32, 32*17, 32*13, grid));
         room.addObject(new BoarLvl1(32*3, 32, 32*17, 32*13,grid ,1));
         TextBox tb = new TextBox(100,100);

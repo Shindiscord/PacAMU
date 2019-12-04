@@ -18,6 +18,16 @@ public class GameRoom{
 	private long prevTime = 0;
 	private KeyboardManager kManager;
 	
+	private int width;
+	private int height;
+	
+	public int getWidth() {
+		return this.width;
+	}
+	public int getHeight() {
+		return this.height;
+	}
+	
 	public GameRoom(int refreshRate) {
 		this.scene = new GameScene();
 		this.kManager = new KeyboardManager();
