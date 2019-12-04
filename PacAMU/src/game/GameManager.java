@@ -15,6 +15,8 @@ public abstract class GameManager {
 	private static Stage _window;
 	
 	private static GameRoom currentRoom;
+
+	private static boolean isFemale;
 	
 	
 	private static int score = 0;
@@ -25,9 +27,22 @@ public abstract class GameManager {
 		return currentRoom;
 	}
 	
+
 	public static void addScore(int n) {
 		score += n;
 		System.out.println(score);
+	}
+	
+	public static void setMale() {
+		isFemale = false;
+	}
+	
+	public static void setFemale() {
+		isFemale = true;
+	}
+	
+	public static boolean getIsFemale() {
+		return isFemale;
 	}
 	
 	public static void gameOver() {
@@ -71,8 +86,8 @@ public abstract class GameManager {
         ButtonChapter1 chapter1 = new ButtonChapter1(new Image("/img/buttons/chapter1.png"));
         ButtonInstruction instructions = new ButtonInstruction(new Image("/img/buttons/instructions.png"));
         ButtonQuitGame quitGame = new ButtonQuitGame(new Image("/img/buttons/quitGame.png"));
-        ButtonCharacterM characterMale = new ButtonCharacterM("Male");
-        ButtonCharacterF characterFemale = new ButtonCharacterF("Female");
+        ButtonCharacterM characterMale = new ButtonCharacterM(new Image("/img/Player/male_portrait_50_50.png"));
+        ButtonCharacterF characterFemale = new ButtonCharacterF(new Image("/img/Player/female_portrait_50_50.png"));
     	gameMenu.addBackground(new Image("/img/fond.png"));
         chapter1.setPos(210, 150);
         instructions.setPos(180, 250);
