@@ -15,8 +15,15 @@ public abstract class GameManager {
 	
 	private static GameRoom currentRoom;
 	
+	private static int score;
+	
 	public static GameRoom getCurrentRoom() {
 		return currentRoom;
+	}
+	
+	public static void addScore(int i) {
+		score += i;
+		System.out.println("Score : " + score);
 	}
 	
 	public static void gameOver() {
@@ -45,6 +52,7 @@ public abstract class GameManager {
 	public static void startGame() {
 
 		_window.setTitle("test1");
+		score = 0;
         GameRoom room = new GameRoom(40);
         currentRoom = room;
     	Grid grid = null;
@@ -62,6 +70,28 @@ public abstract class GameManager {
         room.addObject(stud);
         room.addObject(new BoarLvl2(32*7, 32*4, 32*17, 32*13,grid ,1, stud));
         room.addObject(new BoarLvl1(32*8, 32*4, 32*17, 32*13,grid ,1));
+        
+        Student stud = null;
+        
+        for(int i=0 ; i<grid.getLargeur() ; i++) {
+        	for(int j=0 ; j<grid.getHauteur() ; j++) {
+        		if(grid.getTile(i, j) == '1') {
+        	        stud = new Student(32*i, 32*j, 32*17, 32*13, grid);
+        	        room.addObject(stud);	
+        		}
+        	}
+        }
+        for(int i=0 ; i<grid.getLargeur() ; i++) {
+        	for(int j=0 ; j<grid.getHauteur() ; j++) {
+        		if(grid.getTile(i, j) == '2') {
+        			room.addObject(new BoarLvl1(32*i, 32*j, 32*17, 32*13,grid ,1));			
+        		}
+        		else if(grid.getTile(i, j) == '3') {
+        			room.addObject(new BoarLvl2(32*i, 32*j, 32*17, 32*13,grid ,1, stud));			
+        		}
+        	}
+        }
+        
         TextBox tb = new TextBox(100,100);
         tb.setText("AHIOHAOIBFOZA");
         tb.setSize(20);
