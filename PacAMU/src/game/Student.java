@@ -22,17 +22,15 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	
 	private int vies = 3;
 	
-	private TextBox lifeText;
-	
 	private Grid map;
-	
-	private boolean coffeePowa;
 	
 	private double startingX;
 	private double startingY;
 	
 	private double prevGridX;
 	private double prevGridY;
+	
+	private TextBox lifeText;
 	
 	private final SingleSprite leftSprite = new SingleSprite(
 			new Image("/img/Player/male_l_30_51_8.png")
@@ -55,15 +53,32 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		return this.s;
 	}
 	
+	private boolean coffeePowa;
+	private long coffeePowaUsage;
+	private boolean bootsPowa;
+	private boolean bootsPowaIsUsed;
+	
+	public boolean getCoffeePowaState() {
+		return coffeePowa;
+	}
+	
 	public void setCoffeeState(boolean state) {
 		this.coffeePowa = state;
+		if (state) coffeePowaUsage = 5_000;
 		if (state) System.out.println("L'étudiant s'excite");
 	}
 	
-	public void setLifeText(TextBox tb) {
-		this.lifeText = tb;
-		tb.setText("Vies : " + this.vies);
+	public void setBootsState(boolean state) {
+		this.bootsPowa = state;
+		if (state) System.out.println("L'étudiant mets des bottes");
 	}
+	
+	
+	public void setlifeText(TextBox t) {
+		this.lifeText = t;
+		t.setText("Vies : " + this.vies);
+	}
+		
 	
 	Student(double x, double y, int bordureH, int bordureV, Grid map){
 		this.updateSprite = false;
@@ -80,6 +95,9 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		this.startingY = y;
 		this.map = map;
 		this.coffeePowa = false;
+		this.bootsPowa = false;
+		this.bootsPowaIsUsed = false;
+		this.coffeePowaUsage = 0;
 	}
 	
 	public Rectangle getHitbox() {
@@ -113,17 +131,32 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	
 	public void onCollide(Collidable c) {
 		if(c instanceof Boar) {
-			this.vies--;
-			if(this.vies > 0) {
-				this.setPos(startingX, startingY);
-				if(this.lifeText != null)
+			if ( coffeePowa ) {
+				GameManager.addScore(500);
+				GameManager.getCurrentRoom().removeObject((amuGameObject) c); 
+			}
+			else {
+				this.vies--;
+				if(this.vies > 0) {
+					this.setPos(startingX, startingY);
 					this.lifeText.setText("Vies : " + this.vies);
-			}else
-				GameManager.gameOver();
+				}else
+					GameManager.gameOver();
+			
+				System.out.println("Vies : " + this.vies);
+			}
 		}
 	}
 	
 	public void update(long msSinceLastCall){
+		
+		if ( coffeePowa ) {
+			coffeePowaUsage -= msSinceLastCall;
+			if(coffeePowaUsage <= 0) {
+				coffeePowaUsage = 0;
+				setCoffeeState(false);
+			}
+		}
 		
 		double currentGridX = Math.floor(this.getX()/this.gridSize);
 		double currentGridY = Math.floor(this.getY()/this.gridSize);
@@ -159,9 +192,16 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 				}
 			}
 			//Check for walls
-			if(this.map.nextIsAWall((int) currentGridX, (int)currentGridY, this.currentDirection)) {
+			if(bootsPowa == false && this.map.nextIsAWall((int) currentGridX, (int)currentGridY, this.currentDirection)) {
 				this.setVspeed(0);
 				this.setHspeed(0);
+			}
+			if(bootsPowa && this.map.getTile((int) currentGridX, (int) currentGridY) == 'm') {
+				this.bootsPowaIsUsed = true;
+			}
+			if(bootsPowa && bootsPowaIsUsed && this.map.getTile((int) currentGridX, (int) currentGridY) == '0') {
+				this.bootsPowa = false;
+				this.bootsPowaIsUsed = false;
 			}
 		}
 		//Checks for edges of screen
