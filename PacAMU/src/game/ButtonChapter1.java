@@ -15,10 +15,12 @@ public class ButtonChapter1 extends Clickable{
 	
 	public ButtonChapter1(String name) {
 		super(name);
+		this.button.setMaxSize(220, 50);
 	}
 	
 	public ButtonChapter1(Image img) {
 		super(img);
+		this.button.setMaxSize(220, 50);
 	}
 	
 	
