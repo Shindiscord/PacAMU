@@ -4,13 +4,17 @@ import amuEngine.amuGameObject;
 import amuEngine.graphics.ChangeableSprite;
 import amuEngine.graphics.SingleSprite;
 import amuEngine.graphics.Sprite;
+import amuEngine.physics.Collidable;
 import amuEngine.physics.MovableObject;
-import amuEngine.physics.UncontrollableObject;
 import game.map.Grid;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Rectangle;
 
-public abstract class Boar extends UncontrollableObject implements amuGameObject {
+public abstract class Boar extends MovableObject implements amuGameObject, Collidable {
+	
+	protected double startingX;
+	protected double startingY;
 
 	protected int colorIteration;
 	
@@ -41,6 +45,16 @@ public abstract class Boar extends UncontrollableObject implements amuGameObject
 	
 	protected ChangeableSprite s;
 	protected int bordureH, bordureV;
+	
+	public void onCollide(Collidable c) {
+		if(c instanceof Student) {
+			this.setPos(startingX, startingY);
+		}
+	}
+	
+	public Rectangle getHitbox() {
+		return new Rectangle(this.getX(), this.getY(), 25, 25);
+	}
 
 	
 	public Boar (double x, double y,int bordureH, int bordureV,Grid map ,int iteration) {
@@ -49,6 +63,8 @@ public abstract class Boar extends UncontrollableObject implements amuGameObject
 		this.bordureV = bordureV;
 		this.s = new ChangeableSprite(rightSprite);
 		this.gridSize = 32;
+		this.startingX = x;
+		this.startingY = y;
 		s.setPosition(x, y);
 		this.setPos(x, y);
 		this.map = map;
