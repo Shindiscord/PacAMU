@@ -43,7 +43,7 @@ public class TileManager {
 				if( grid.getTile(i, j) == 'm') {
 					room.addObject(new Tile(grass[r.nextInt(5)], tile_width, tile_height, 1, i, j));
 				}
-				if ( grid.getTile(i, j) == '0') {
+				if ( grid.getTile(i, j) != 'm') {
 					char above = grid.getTile(i, (j-1)%grid.getHauteur());
 					char below = grid.getTile(i, (j+1)%grid.getHauteur());
 					char right = grid.getTile(((i+1)%grid.getLargeur()), j);

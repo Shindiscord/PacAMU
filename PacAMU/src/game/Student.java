@@ -5,12 +5,13 @@ import amuEngine.*;
 import amuEngine.physics.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Rectangle;
 
 import java.lang.Math;
 import game.map.Grid;
 
 
-class Student  extends MovableObject implements amuGameObject, KeyboardListener{
+class Student  extends MovableObject implements amuGameObject, KeyboardListener, Collidable{
 	
 	private double gridSize;
 	private boolean updateSprite;
@@ -19,6 +20,14 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 	private KeyCode nextDirection;
 	
 	private Grid map;
+	
+	private boolean CLASSIC_STATE;
+	private boolean COFFEE_STATE;
+	private boolean NO_WALLS_STATE;
+	private boolean LITTLE_STATE;
+		
+	private double startingX;
+	private double startingY;
 	
 	private double prevGridX;
 	private double prevGridY;
@@ -45,6 +54,7 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 	}
 	
 	Student(double x, double y, int bordureH, int bordureV, Grid map){
+		
 		this.updateSprite = false;
 		s =  new ChangeableSprite(rightSprite);
 		s.setPosition(x, y);
@@ -55,7 +65,13 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 		this.setHspeed(4);
 		this.bordureH = bordureH;
 		this.bordureV = bordureV;
+		this.startingX = x;
+		this.startingY = y;
 		this.map = map;
+	}
+	
+	public Rectangle getHitbox() {
+		return new Rectangle(this.getX(), this.getY(), 32, 32);
 	}
 	
 	public void onKeyPressed(KeyCode key) {
@@ -79,6 +95,12 @@ class Student  extends MovableObject implements amuGameObject, KeyboardListener{
 	
 	public void onKeyReleased(KeyCode key) {
 
+	}
+	
+	public void onCollide(Collidable c) {
+		if(c instanceof Boar) {
+			this.setPos(startingX, startingY);
+		}
 	}
 	
 	public void update(long msSinceLastCall){
