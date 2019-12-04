@@ -29,19 +29,10 @@ public abstract class Boar extends MovableObject implements amuGameObject, Colli
 	protected double prevGridX;
 	protected double prevGridY;
 	
-	protected final SingleSprite leftSprite = new SingleSprite(
-			new Image("/img/Boar/boar_brown_l_46_30_5.png")
-			,46, 30, 5);
-	protected final SingleSprite upSprite = new SingleSprite(
-			new Image("/img/Boar/boar_brown_u_32_44_5.png")
-			,32, 44, 5);
-	
-	protected final SingleSprite rightSprite = new SingleSprite(
-			new Image("/img/Boar/boar_brown_r_46_30_5.png")
-			,46, 30, 5);
-	protected final SingleSprite downSprite = new SingleSprite(
-			new Image("/img/Boar/boar_brown_d_32_38_7.png")
-			,32, 36, 7);
+	protected SingleSprite leftSprite;
+	protected SingleSprite upSprite;
+	protected SingleSprite rightSprite;
+	protected SingleSprite downSprite;
 	
 	protected ChangeableSprite s;
 	protected int bordureH, bordureV;
@@ -61,39 +52,14 @@ public abstract class Boar extends MovableObject implements amuGameObject, Colli
 		this.colorIteration = iteration;
 		this.bordureH = bordureH;
 		this.bordureV = bordureV;
-		this.s = new ChangeableSprite(rightSprite);
 		this.gridSize = 32;
 		this.startingX = x;
 		this.startingY = y;
-		s.setPosition(x, y);
 		this.setPos(x, y);
 		this.map = map;
-		this.currentDirection = KeyCode.RIGHT;
+		this.currentDirection = KeyCode.UP;
 		this.chooseDirection(this.getX()/32, this.getY()/32);
 		this.nextDirection = this.currentDirection;
-		switch(this.currentDirection) {
-		case UP:
-			this.setVspeed(-4);
-			this.setHspeed(0);
-			this.s.switchTo(upSprite);
-			break;
-		case DOWN:
-			this.setVspeed(4);
-			this.setHspeed(0);
-			this.s.switchTo(downSprite);
-			break;
-		case LEFT:
-			this.setHspeed(-4);
-			this.setVspeed(0);
-			this.s.switchTo(leftSprite);
-			break;
-		case RIGHT:
-			this.setHspeed(4);
-			this.setVspeed(0);
-			this.s.switchTo(rightSprite);
-			break;
-		default:
-		}
 	}
 	
 	protected abstract KeyCode chooseDirection(double currentGridX, double currentGridY);

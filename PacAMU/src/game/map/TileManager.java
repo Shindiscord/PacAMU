@@ -3,6 +3,8 @@ package game.map;
 import java.util.Random;
 
 import amuEngine.GameRoom;
+import game.Coffee;
+import game.GameManager;
 import javafx.scene.image.Image;
 
 public class TileManager {
@@ -34,6 +36,21 @@ public class TileManager {
 		}
 	}
 	
+	public static void placeCollectables(GameRoom room, Grid grid, int tile_width, int tile_height) {
+		for( int i=0 ; i<grid.getLargeur() ; i++) {
+			for( int j=0 ; j<grid.getHauteur() ; j++) {
+				if( grid.getTile(i,j) == Grid.NCOFFEE ) {
+					grid.setObjectsMap(i,j,new Coffee(i*tile_width, j*tile_height));
+					GameManager.getCurrentRoom().addObject(grid.getObjectsMap(i, j));
+				}
+			//	else if ( this.getTile(i, j) == NSHEET ) {
+				//	this.objects[i][j] = new Sheet(i*TILE_SIZE, j*TILE_SIZE);
+			//	}
+
+			}
+		}
+	}
+	
 	public static void placeTiles(GameRoom room, Grid grid, int tile_width, int tile_height) {
 		init();
 		Random r = new Random();
@@ -43,7 +60,7 @@ public class TileManager {
 				if( grid.getTile(i, j) == 'm') {
 					room.addObject(new Tile(grass[r.nextInt(5)], tile_width, tile_height, 1, i, j));
 				}
-				if ( grid.getTile(i, j) == '0') {
+				if ( grid.getTile(i, j) != 'm') {
 					char above = grid.getTile(i, (j-1)%grid.getHauteur());
 					char below = grid.getTile(i, (j+1)%grid.getHauteur());
 					char right = grid.getTile(((i+1)%grid.getLargeur()), j);
