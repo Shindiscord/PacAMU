@@ -43,15 +43,15 @@ public class TileManager {
 			for( int j=0 ; j<grid.getHauteur() ; j++) {
 				if( grid.getTile(i,j) == Grid.NCOFFEE ) {
 					grid.setObjectsMap(i,j,new Coffee(i*tile_width, j*tile_height));
-					GameManager.getCurrentRoom().addObject(grid.getObjectsMap(i, j));
+					room.addObject(grid.getObjectsMap(i, j));
 				}
 				else if( grid.getTile(i,j) == Grid.NBOOTS ) {
 					grid.setObjectsMap(i,j,new Boots(i*tile_width, j*tile_height));
-					GameManager.getCurrentRoom().addObject(grid.getObjectsMap(i, j));
+					room.addObject(grid.getObjectsMap(i, j));
 				}
 				else if ( grid.getTile(i, j) == Grid.NSHEET) {
 					grid.setObjectsMap(i,j,new Sheet(i*tile_width, j*tile_height));
-					GameManager.getCurrentRoom().addObject(grid.getObjectsMap(i, j));
+					room.addObject(grid.getObjectsMap(i, j));
 				}
 
 			}

@@ -2,6 +2,7 @@ package game;
 
 import amuEngine.graphics.*;
 import amuEngine.*;
+import amuEngine.UI.TextBox;
 import amuEngine.physics.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -19,8 +20,6 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	private KeyCode currentDirection;
 	private KeyCode nextDirection;
 	
-	private boolean female;
-	
 	private int vies = 3;
 	
 	private Grid map;
@@ -31,19 +30,13 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	private double prevGridX;
 	private double prevGridY;
 	
-	private SingleSprite leftSprite = new SingleSprite(
-			new Image("/img/Player/male_l_30_51_8.png")
-			,30, 51, 8);
-	private SingleSprite upSprite = new SingleSprite(
-			new Image("/img/Player/male_u_30_51_8.png")
-			,30, 51, 8);
+	private TextBox lifeText;
 	
-	private SingleSprite rightSprite = new SingleSprite(
-			new Image("/img/Player/male_r_30_51_8.png")
-			,30, 51, 8);
-	private SingleSprite downSprite = new SingleSprite(
-			new Image("/img/Player/male_d_30_51_8.png")
-			,30, 51, 8);
+	private SingleSprite leftSprite;
+	private SingleSprite upSprite;
+	
+	private SingleSprite rightSprite;
+	private SingleSprite downSprite;
 	
 	ChangeableSprite s;
 	private int bordureH, bordureV;
@@ -71,13 +64,16 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		this.bootsPowa = state;
 		if (state) System.out.println("L'étudiant mets des bottes");
 	}
+	
+	
+	public void setlifeText(TextBox t) {
+		this.lifeText = t;
+		t.setText("Vies : " + this.vies);
+	}
 		
 	
 	Student(double x, double y, int bordureH, int bordureV, Grid map){
-		this.female = false;
 		this.updateSprite = false;
-		s =  new ChangeableSprite(rightSprite);
-		s.setPosition(x, y);
 		this.setPos(x, y);
 		this.gridSize = 32;
 		this.currentDirection = KeyCode.RIGHT;
@@ -92,6 +88,38 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		this.bootsPowa = false;
 		this.bootsPowaIsUsed = false;
 		this.coffeePowaUsage = 0;
+		if(GameManager.getIsFemale()) {
+			this.leftSprite = new SingleSprite(
+					new Image("/img/Player/girl_l_30_51.png")
+					,30, 51, 8);
+			this.upSprite = new SingleSprite(
+					new Image("/img/Player/girl_u_30_51.png")
+					,30, 51, 8);
+			
+			this.rightSprite = new SingleSprite(
+					new Image("/img/Player/girl_r_30_51.png")
+					,30, 51, 8);
+			this.downSprite = new SingleSprite(
+					new Image("/img/Player/girl_d_30_51.png")
+					,30, 51, 8);
+		}
+		else {
+			this.leftSprite = new SingleSprite(
+					new Image("/img/Player/male_l_30_51_8.png")
+					,30, 51, 8);
+			this.upSprite = new SingleSprite(
+					new Image("/img/Player/male_u_30_51_8.png")
+					,30, 51, 8);
+			
+			this.rightSprite = new SingleSprite(
+					new Image("/img/Player/male_r_30_51_8.png")
+					,30, 51, 8);
+			this.downSprite = new SingleSprite(
+					new Image("/img/Player/male_d_30_51_8.png")
+					,30, 51, 8);
+		}
+		s =  new ChangeableSprite(rightSprite);
+		s.setPosition(x, y);
 	}
 	
 	public Rectangle getHitbox() {
@@ -114,38 +142,6 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 			break;
 		case P:
 			GameManager.getCurrentRoom().pause();
-		case F:
-			this.female = !this.female;
-			if(!female) {
-				this.leftSprite = new SingleSprite(
-						new Image("/img/Player/male_l_30_51_8.png")
-						,30, 51, 8);
-				this.upSprite = new SingleSprite(
-						new Image("/img/Player/male_u_30_51_8.png")
-						,30, 51, 8);
-				
-				this.rightSprite = new SingleSprite(
-						new Image("/img/Player/male_r_30_51_8.png")
-						,30, 51, 8);
-				this.downSprite = new SingleSprite(
-						new Image("/img/Player/male_d_30_51_8.png")
-						,30, 51, 8);
-			}
-			else {
-				this.leftSprite = new SingleSprite(
-						new Image("/img/Player/girl_l_30_51.png")
-						,30, 51, 8);
-				this.upSprite = new SingleSprite(
-						new Image("/img/Player/girl_u_30_51.png")
-						,30, 51, 8);
-				
-				this.rightSprite = new SingleSprite(
-						new Image("/img/Player/girl_r_30_51.png")
-						,30, 51, 8);
-				this.downSprite = new SingleSprite(
-						new Image("/img/Player/girl_d_30_51.png")
-						,30, 51, 8);
-			}
 		default:
 			
 		}
@@ -163,9 +159,10 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 			}
 			else {
 				this.vies--;
-				if(this.vies > 0)
+				if(this.vies > 0) {
 					this.setPos(startingX, startingY);
-				else
+					this.lifeText.setText("Vies : " + this.vies);
+				}else
 					GameManager.gameOver();
 			
 				System.out.println("Vies : " + this.vies);

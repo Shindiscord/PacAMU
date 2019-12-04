@@ -39,7 +39,7 @@ public abstract class Boar extends MovableObject implements amuGameObject, Colli
 	
 	public void onCollide(Collidable c) {
 		if(c instanceof Student) {
-			this.setPos(startingX, startingY);
+			//this.setPos(startingX, startingY);
 		}
 	}
 	
