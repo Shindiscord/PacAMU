@@ -24,6 +24,7 @@ public abstract class GameManager {
 	
 	public static void addScore(int n) {
 		score += n;
+		System.out.println(score);
 	}
 	
 	public static void gameOver() {
@@ -56,6 +57,7 @@ public abstract class GameManager {
         ButtonChapter1 chapter1 = new ButtonChapter1(new Image("/img/buttons/chapter1.png"));
         ButtonInstruction instructions = new ButtonInstruction(new Image("/img/buttons/instructions.png"));
         ButtonQuitGame quitGame = new ButtonQuitGame(new Image("/img/buttons/quitGame.png"));
+    	gameMenu.addBackground(new Image("/img/fond.png"));
         chapter1.setPos(230, 100);
         instructions.setPos(230, 200);
         quitGame.setPos(230,300);
