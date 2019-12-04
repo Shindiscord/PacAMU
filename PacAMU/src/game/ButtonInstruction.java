@@ -16,6 +16,7 @@ public class ButtonInstruction extends Clickable {
 	
 	public ButtonInstruction(Image img) {
 		super(img);
+		this.button.setMaxSize(220, 50);
 	}
 	
 	public void onClick() {
