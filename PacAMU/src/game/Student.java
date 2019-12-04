@@ -19,6 +19,8 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	private KeyCode currentDirection;
 	private KeyCode nextDirection;
 	
+	private boolean female;
+	
 	private int vies = 3;
 	
 	private Grid map;
@@ -29,17 +31,17 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	private double prevGridX;
 	private double prevGridY;
 	
-	private final SingleSprite leftSprite = new SingleSprite(
+	private SingleSprite leftSprite = new SingleSprite(
 			new Image("/img/Player/male_l_30_51_8.png")
 			,30, 51, 8);
-	private final SingleSprite upSprite = new SingleSprite(
+	private SingleSprite upSprite = new SingleSprite(
 			new Image("/img/Player/male_u_30_51_8.png")
 			,30, 51, 8);
 	
-	private final SingleSprite rightSprite = new SingleSprite(
+	private SingleSprite rightSprite = new SingleSprite(
 			new Image("/img/Player/male_r_30_51_8.png")
 			,30, 51, 8);
-	private final SingleSprite downSprite = new SingleSprite(
+	private SingleSprite downSprite = new SingleSprite(
 			new Image("/img/Player/male_d_30_51_8.png")
 			,30, 51, 8);
 	
@@ -72,6 +74,7 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		
 	
 	Student(double x, double y, int bordureH, int bordureV, Grid map){
+		this.female = false;
 		this.updateSprite = false;
 		s =  new ChangeableSprite(rightSprite);
 		s.setPosition(x, y);
@@ -111,6 +114,38 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 			break;
 		case P:
 			GameManager.getCurrentRoom().pause();
+		case F:
+			this.female = !this.female;
+			if(!female) {
+				this.leftSprite = new SingleSprite(
+						new Image("/img/Player/male_l_30_51_8.png")
+						,30, 51, 8);
+				this.upSprite = new SingleSprite(
+						new Image("/img/Player/male_u_30_51_8.png")
+						,30, 51, 8);
+				
+				this.rightSprite = new SingleSprite(
+						new Image("/img/Player/male_r_30_51_8.png")
+						,30, 51, 8);
+				this.downSprite = new SingleSprite(
+						new Image("/img/Player/male_d_30_51_8.png")
+						,30, 51, 8);
+			}
+			else {
+				this.leftSprite = new SingleSprite(
+						new Image("/img/Player/girl_l_30_51.png")
+						,30, 51, 8);
+				this.upSprite = new SingleSprite(
+						new Image("/img/Player/girl_u_30_51.png")
+						,30, 51, 8);
+				
+				this.rightSprite = new SingleSprite(
+						new Image("/img/Player/girl_r_30_51.png")
+						,30, 51, 8);
+				this.downSprite = new SingleSprite(
+						new Image("/img/Player/girl_d_30_51.png")
+						,30, 51, 8);
+			}
 		default:
 			
 		}
