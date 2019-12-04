@@ -42,6 +42,10 @@ public abstract class GameManager {
 	}
 	
 	public static void startGame() {
+
+		_window.setTitle("test1");
+        GameRoom room = new GameRoom(40);
+        currentRoom = room;
     	Grid grid = null;
 		try {
 			grid = new Grid("res/mapFiles/map1.txt", 18, 14);
@@ -50,9 +54,9 @@ public abstract class GameManager {
 			e.printStackTrace();
 		}
     	grid.print();
-		_window.setTitle("test1");
-        GameRoom room = new GameRoom(40);
+    	
         TileManager.placeTiles(room, grid, 32, 32);
+        TileManager.placeCollectables(room, grid, 32, 32);
         room.addObject(new Student(32, 32, 32*17, 32*13, grid));
         room.addObject(new BoarLvl1(32*3, 32, 32*17, 32*13,grid ,1));
         TextBox tb = new TextBox(100,100);
@@ -60,6 +64,5 @@ public abstract class GameManager {
         tb.setSize(20);
         room.addText(tb);
         room.start(_window, grid.getLargeur()*32, grid.getHauteur()*32);
-        currentRoom = room;
 	}
 }

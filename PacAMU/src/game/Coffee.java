@@ -27,7 +27,7 @@ public class Coffee implements amuGameObject{
 		return this.sprite;
 	}
 	
-	Coffee(double x, double y){
+	public Coffee(double x, double y){
 		this.updateSprite = false;
 		this.sprite.setPosition(x, y);
 		this.pos_X = x;
