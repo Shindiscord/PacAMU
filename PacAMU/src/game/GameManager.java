@@ -53,6 +53,13 @@ public abstract class GameManager {
 		tb.setColor(Color.DARKRED);
 		tb.setSize(40);
 		gameOverRoom.addText(tb);
+		ButtonRestart restart = new ButtonRestart("restart");
+		restart.addToRoom(gameOverRoom);
+		restart.setPos(270, 250);
+		restart.getButton().setMaxSize(100, 50);
+        ButtonBack back = new ButtonBack("back");
+        back.addToRoom(gameOverRoom);
+        back.setPos(400, 400);
 		gameOverRoom.start(_window,currentRoom.getWidth() , currentRoom.getHeight());
 		
 		currentRoom = gameOverRoom;
