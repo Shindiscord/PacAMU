@@ -29,17 +29,17 @@ public abstract class Boar extends MovableObject implements amuGameObject, Colli
 	protected double prevGridX;
 	protected double prevGridY;
 	
-	protected final SingleSprite leftSprite = new SingleSprite(
+	protected SingleSprite leftSprite = new SingleSprite(
 			new Image("/img/Boar/boar_brown_l_46_30_5.png")
 			,46, 30, 5);
-	protected final SingleSprite upSprite = new SingleSprite(
+	protected SingleSprite upSprite = new SingleSprite(
 			new Image("/img/Boar/boar_brown_u_32_44_5.png")
 			,32, 44, 5);
 	
-	protected final SingleSprite rightSprite = new SingleSprite(
+	protected SingleSprite rightSprite = new SingleSprite(
 			new Image("/img/Boar/boar_brown_r_46_30_5.png")
 			,46, 30, 5);
-	protected final SingleSprite downSprite = new SingleSprite(
+	protected SingleSprite downSprite = new SingleSprite(
 			new Image("/img/Boar/boar_brown_d_32_38_7.png")
 			,32, 36, 7);
 	
