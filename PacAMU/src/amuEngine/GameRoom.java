@@ -8,8 +8,14 @@ import amuEngine.UI.TextBox;
 import amuEngine.physics.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.stage.Stage;
 
 public class GameRoom{
 	private GameScene scene;
@@ -38,15 +44,17 @@ public class GameRoom{
 		this.objectList = new ArrayList<>();
 		this.timer = new AnimationTimer() {
             public void handle(long currentNanoTime){
-            	if(prevTime == 0)
-            		prevTime = currentNanoTime;
-            	if((currentNanoTime - prevTime)/1000000 >= 1000/refreshRate){
-            		for(amuGameObject o: objectList) {
-            			o.update((currentNanoTime-prevTime)/1000000);
-            		}            		
-            		pEngine.update((currentNanoTime-prevTime)/1000000);
-            		prevTime = currentNanoTime;
-            	}
+            	try{
+            		if(prevTime == 0)
+            			prevTime = currentNanoTime;
+            		if((currentNanoTime - prevTime)/1000000 >= 1000/refreshRate){
+            			for(amuGameObject o: objectList) {
+            				o.update((currentNanoTime-prevTime)/1000000);
+            			}            		
+            			pEngine.update((currentNanoTime-prevTime)/1000000);
+            			prevTime = currentNanoTime;
+            		}
+            	} catch ( java.util.ConcurrentModificationException exception) {  }
             }
 		};
 		
@@ -60,6 +68,10 @@ public class GameRoom{
 			this.kManager.addListener((KeyboardListener)o);
 		}
 		this.objectList.add(o);
+	}
+	
+	public void addBackground(Image bg) {
+		this.scene.getPane().setBackground(new Background(new BackgroundImage(bg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 	}
 	
 	public void removeObject(amuGameObject o) {
@@ -76,7 +88,7 @@ public class GameRoom{
 	}
 	
 	public void addButton(Button b) {
-		this.scene.getPane().getChildren().add(b);
+		scene.getPane().getChildren().add(b);
 	}
 	
 	public void start(Stage window, int width, int height) {

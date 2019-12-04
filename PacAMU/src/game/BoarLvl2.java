@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 
 public class BoarLvl2 extends Boar{
 	
-	private PhysicalObject target;
+	private Student target;
 	
 	protected KeyCode chooseDirection(double currentGridX, double currentGridY) {
 		if(target == null) {
@@ -53,17 +53,26 @@ public class BoarLvl2 extends Boar{
 				direction[0] = KeyCode.DOWN;
 			}
 		}
+		if ( target.getCoffeePowaState() ) {
+			for(int i = 3; i >= 0; i--) {
+				if(!map.nextIsAWall((int)currentGridX, (int)currentGridY, direction[i])) {
+					return direction[i];
+				}
+			}
+		}
 		
-		for(int i = 0; i < 4; i++) {
-			if(!map.nextIsAWall((int)currentGridX, (int)currentGridY, direction[i])) {
-				return direction[i];
+		else {
+			for(int i = 0; i < 4; i++) {
+				if(!map.nextIsAWall((int)currentGridX, (int)currentGridY, direction[i])) {
+					return direction[i];
+				}
 			}
 		}
 		return KeyCode.RIGHT;
 	
 	}
 	
-	public BoarLvl2 (double x, double y,int bordureH, int bordureV,Grid map ,int iteration, PhysicalObject target) {
+	public BoarLvl2 (double x, double y,int bordureH, int bordureV,Grid map ,int iteration, Student target) {
 		super(x, y, bordureH, bordureV, map, iteration);
 		this.target = target;
 		this.leftSprite = new SingleSprite(

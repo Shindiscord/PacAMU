@@ -10,15 +10,19 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 public abstract class Clickable {
 	
-	Button button;
+	protected Button button;
 	String name;
 	Image img;
 	
 	
 	public abstract void onClick();
 	
+	public Button getButton() {
+		return this.button;
+	}
+	
 	public void addToRoom(GameRoom room) {
-		this.button.setMaxSize(220, 50);
+		//this.button.setMaxSize(220, 50);
 		room.addButton(this.button);
 	}
 	
