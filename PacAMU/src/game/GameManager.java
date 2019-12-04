@@ -15,22 +15,41 @@ public abstract class GameManager {
 	private static Stage _window;
 	
 	private static GameRoom currentRoom;
+
+	private static boolean isFemale;
+	
 	
 	private static int score = 0;
+	
+	private static TextBox scoreText;
 	
 	public static GameRoom getCurrentRoom() {
 		return currentRoom;
 	}
 	
+
 	public static void addScore(int n) {
 		score += n;
 		System.out.println(score);
 	}
 	
+	public static void setMale() {
+		isFemale = false;
+	}
+	
+	public static void setFemale() {
+		isFemale = true;
+	}
+	
+	public static boolean getIsFemale() {
+		return isFemale;
+	}
+	
 	public static void gameOver() {
 		currentRoom.stop();
 		GameRoom gameOverRoom = new GameRoom(40);
-		TextBox tb = new TextBox(100, 100);
+		TextBox tb = new TextBox(200, 150);
+		gameOverRoom.addBackground(new Image("/img/Fond2.png"));
 		tb.setText("GAME OVER");
 		tb.setColor(Color.DARKRED);
 		tb.setSize(40);
@@ -57,10 +76,16 @@ public abstract class GameManager {
 		_window = window;
 	}
 	
-	
-	public static int getScore() {
-		return score;
+	/*
+	public int getScore() {
+		return this.score;
 	}
+	
+	public void setScoreText(TextBox t) {
+		this.scoreText = t;
+		t.setText("Score : " + this.getScore());
+		
+	}*/
 	
 	public static void startGame() {
 
@@ -69,9 +94,8 @@ public abstract class GameManager {
         ButtonChapter1 chapter1 = new ButtonChapter1(new Image("/img/buttons/chapter1.png"));
         ButtonInstruction instructions = new ButtonInstruction(new Image("/img/buttons/instructions.png"));
         ButtonQuitGame quitGame = new ButtonQuitGame(new Image("/img/buttons/quitGame.png"));
-        ButtonCharacterM characterMale = new ButtonCharacterM("Male");
-        ButtonCharacterF characterFemale = new ButtonCharacterF("Female");
-        
+        ButtonCharacterM characterMale = new ButtonCharacterM(new Image("/img/Player/male_portrait_50_50.png"));
+        ButtonCharacterF characterFemale = new ButtonCharacterF(new Image("/img/Player/female_portrait_50_50.png"));
     	gameMenu.addBackground(new Image("/img/fond.png"));
         chapter1.setPos(210, 150);
         instructions.setPos(180, 250);

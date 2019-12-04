@@ -17,7 +17,8 @@ public class ButtonCharacterF extends Clickable{
 	
 	
 	public void onClick() {
-		//System.out.println("j'ai cliqué");
+		GameManager.setFemale();
+		//System.out.println("j'ai cliquï¿½");
 	}
 
 }
