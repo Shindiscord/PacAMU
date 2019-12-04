@@ -81,5 +81,24 @@ public class BoarLvl1 extends Boar {
 	
 	public BoarLvl1 (double x, double y,int bordureH, int bordureV,Grid map ,int iteration) {
 		super(x, y, bordureH, bordureV, map, iteration);
+		this.leftSprite = new SingleSprite(
+				new Image("/img/Boar/boar_brown_l_46_30_5.png")
+				,46, 30, 5);
+		this.upSprite = new SingleSprite(
+				new Image("/img/Boar/boar_brown_u_32_44_5.png")
+				,32, 44, 5);
+		
+		this.rightSprite = new SingleSprite(
+				new Image("/img/Boar/boar_brown_r_46_30_5.png")
+				,46, 30, 5);
+		this.downSprite = new SingleSprite(
+				new Image("/img/Boar/boar_brown_d_32_38_7.png")
+				,32, 36, 7);
+		this.s = new ChangeableSprite(upSprite);
+		s.setPosition(x, y);
+		this.setVspeed(0);
+		this.setHspeed(0);
+		this.s.switchTo(upSprite);
+		this.currentDirection = KeyCode.UP;
 	}
 }
