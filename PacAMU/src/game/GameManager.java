@@ -87,7 +87,7 @@ public abstract class GameManager {
         		}
         	}
         }
-        
+        è
         TextBox tb = new TextBox(100,100);
         tb.setText("AHIOHAOIBFOZA");
         tb.setSize(20);
