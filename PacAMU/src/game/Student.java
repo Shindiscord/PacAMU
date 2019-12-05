@@ -29,8 +29,8 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	
 	private double prevGridX;
 	private double prevGridY;
-	
 	private TextBox lifeText;
+	private TextBox scoreText;
 	
 	private SingleSprite leftSprite;
 	private SingleSprite upSprite;
@@ -39,6 +39,10 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	private SingleSprite downSprite;
 	
 	ChangeableSprite s;
+	
+	private Coffee coffeePowaIcon;
+	private Boots bootsPowaIcon;
+	
 	private int bordureH, bordureV;
 	
 	public Sprite getSprite() {
@@ -49,26 +53,45 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 	private long coffeePowaUsage;
 	private boolean bootsPowa;
 	private boolean bootsPowaIsUsed;
-	
+			
 	public boolean getCoffeePowaState() {
 		return coffeePowa;
 	}
 	
 	public void setCoffeeState(boolean state) {
 		this.coffeePowa = state;
-		if (state) coffeePowaUsage = 5_000;
+		if (state) {
+			coffeePowaUsage = 5_000;
+			coffeePowaIcon = new Coffee(310,450);
+			GameManager.getCurrentRoom().addObject(coffeePowaIcon);
+		}
+		else {
+			GameManager.getCurrentRoom().removeObject(coffeePowaIcon);
+		}
 		if (state) System.out.println("L'étudiant s'excite");
 	}
 	
 	public void setBootsState(boolean state) {
 		this.bootsPowa = state;
-		if (state) System.out.println("L'étudiant mets des bottes");
+		if (state) {
+			System.out.println("L'étudiant mets des bottes");
+			bootsPowaIcon = new Boots(350,450);
+			GameManager.getCurrentRoom().addObject(bootsPowaIcon);
+		}
+		else {
+			GameManager.getCurrentRoom().removeObject(bootsPowaIcon);
+		}
 	}
 	
 	
 	public void setlifeText(TextBox t) {
 		this.lifeText = t;
 		t.setText("Vies : " + this.vies);
+	}
+	
+	public void setScoreText(TextBox t) {
+		this.scoreText = t;
+		t.setText("Score : " + GameManager.getScore());
 	}
 		
 	
@@ -155,6 +178,7 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		if(c instanceof Boar) {
 			if ( coffeePowa ) {
 				GameManager.addScore(500);
+				this.scoreText.setText("Score : " + GameManager.getScore());
 				GameManager.getCurrentRoom().removeObject((amuGameObject) c); 
 			}
 			else {
@@ -185,6 +209,11 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 		
 		//check collectables
 		this.map.pickCollectable(this, (int) (this.getX()/this.gridSize), (int) (this.getY()/this.gridSize));
+		this.scoreText.setText("Score : " + GameManager.getScore());
+		if( this.map.getNbSheetsRemaining() <= 0 ) {
+			GameManager.victory();
+		}
+
 		
 		if((this.getX()%this.gridSize == 0 && this.getY()%this.gridSize == 0)){
 			if(this.currentDirection != this.nextDirection) {
@@ -221,8 +250,8 @@ public class Student  extends MovableObject implements amuGameObject, KeyboardLi
 			if(bootsPowa && this.map.getTile((int) currentGridX, (int) currentGridY) == 'm') {
 				this.bootsPowaIsUsed = true;
 			}
-			if(bootsPowa && bootsPowaIsUsed && this.map.getTile((int) currentGridX, (int) currentGridY) == '0') {
-				this.bootsPowa = false;
+			if(bootsPowa && bootsPowaIsUsed && this.map.getTile((int) currentGridX, (int) currentGridY) != 'm') {
+				this.setBootsState(false);
 				this.bootsPowaIsUsed = false;
 			}
 		}
