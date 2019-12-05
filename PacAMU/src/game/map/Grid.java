@@ -32,6 +32,16 @@ public class Grid {
 	static final char NCOFFEE = '5';
 	static final char NBOOTS = '6';
 	
+	private int nbSheetsRemaining;
+	
+	public void updateNbSheets() {
+		nbSheetsRemaining--;
+	}
+	
+	public int getNbSheetsRemaining() {
+		return nbSheetsRemaining;
+	}
+	
 	public int getHauteur() {
 		return this.hauteur;
 	}
@@ -101,11 +111,13 @@ public class Grid {
 		}
 		if(this.getObjectsMap(x, y) instanceof Sheet) {
 			GameManager.addScore(100);
+			updateNbSheets();
 			removeCollectable(x,y);
 		}
 	}
 	
 	public Grid(String address, int x, int y) throws IOException {
+		this.nbSheetsRemaining = 0;
 		this.f = new File(address);
 		this.fr = new FileReader(this.f);
 		this.br = new BufferedReader(this.fr);
@@ -120,6 +132,8 @@ public class Grid {
 				continue;
 			}
 			this.map[i][j] = (char) c; //conversion integer -> char
+			if ( this.map[i][j] == NSHEET )
+				this.nbSheetsRemaining++;
 			
 			i++;
 

@@ -18,16 +18,12 @@ public abstract class GameManager {
 
 	private static boolean isFemale;
 	
-	
 	private static int score = 0;
-	
-	private static TextBox scoreText;
-	
+		
 	public static GameRoom getCurrentRoom() {
 		return currentRoom;
 	}
 	
-
 	public static void addScore(int n) {
 		score += n;
 		System.out.println(score);
@@ -45,26 +41,53 @@ public abstract class GameManager {
 		return isFemale;
 	}
 	
+	public static int getScore() {
+		return score;
+	}
+	
 	public static void gameOver() {
 		currentRoom.stop();
 		GameRoom gameOverRoom = new GameRoom(40);
-		TextBox tb = new TextBox(100, 100);
-		tb.setText("GAME OVER");
-		tb.setColor(Color.DARKRED);
-		tb.setSize(40);
-		gameOverRoom.addText(tb);
-		ButtonRestart restart = new ButtonRestart("restart");
+		gameOverRoom.addBackground(new Image("/img/defaite.png"));
+		ButtonRestart restart = new ButtonRestart(new Image("/img/buttons/restart.png"));
 		restart.addToRoom(gameOverRoom);
 		restart.setPos(270, 250);
 		restart.getButton().setMaxSize(100, 50);
-        ButtonBack back = new ButtonBack("back");
+        ButtonBack back = new ButtonBack(new Image("/img/buttons/back.png"));
         back.addToRoom(gameOverRoom);
         back.setPos(400, 400);
+        TextBox tb_score = new TextBox(100,100);
+        tb_score.setText("Score : " + score);
+        tb_score.setPos(250, 200);
+        tb_score.setSize(20);
+        gameOverRoom.addText(tb_score);
 		gameOverRoom.start(_window,currentRoom.getWidth() , currentRoom.getHeight());
 		
 		currentRoom = gameOverRoom;
 	}
 	
+	public static void victory() {
+		currentRoom.stop();
+		GameRoom victoryRoom = new GameRoom(40);
+		victoryRoom.addBackground(new Image("/img/victoire.png"));
+		ButtonRestart restart = new ButtonRestart(new Image("/img/buttons/restart.png"));
+		restart.addToRoom(victoryRoom);
+		restart.setPos(270, 250);
+		restart.getButton().setMaxSize(100, 50);
+	    ButtonBack back = new ButtonBack(new Image("/img/buttons/back.png"));
+	    back.addToRoom(victoryRoom);
+	    back.setPos(400, 400);
+        TextBox tb_score = new TextBox(100,100);
+        tb_score.setText("Score : " + score);
+        tb_score.setPos(250, 200);
+        tb_score.setSize(20);
+        victoryRoom.addText(tb_score);
+		victoryRoom.start(_window,currentRoom.getWidth() , currentRoom.getHeight());
+			
+		currentRoom = victoryRoom;
+		
+	}
+		
 	public static void changeRoom(GameRoom newRoom) {
 		currentRoom.stop();
 		newRoom.start(_window, currentRoom.getWidth(), currentRoom.getHeight());

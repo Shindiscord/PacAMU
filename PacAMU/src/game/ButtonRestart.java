@@ -26,7 +26,7 @@ public class ButtonRestart extends Clickable {
         
     	Grid grid = null;
 		try {
-			grid = new Grid("res/mapFiles/map1.txt", 19, 14);
+			grid = new Grid("res/mapFiles/map1.txt", 20, 14);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,17 +35,47 @@ public class ButtonRestart extends Clickable {
     	
         TileManager.placeTiles(chapter1, grid, 32, 32);
         TileManager.placeCollectables(chapter1, grid, 32, 32);
-        Student stud = new Student(64, 32, 32*18, 32*13, grid);
-        chapter1.addObject(stud);
-        chapter1.addObject(new BoarLvl2(32*7, 32*4, 32*18, 32*13,grid ,1, stud));
-        chapter1.addObject(new BoarLvl1(32*8, 32*4, 32*18, 32*13,grid ,1));
-        TextBox tb = new TextBox(100,100);
-        tb.setText("Vie :");
-        tb.setPos(20, 420);
-        tb.setSize(20);
-        stud.setlifeText(tb);
+        Student stud = null;
+        for(int i=0 ; i<grid.getLargeur() ; i++) {
+        	for(int j=0 ; j<grid.getHauteur() ; j++) {
+        		if(grid.getTile(i, j) == '1') {
+        			stud = new Student(32*i, 32*j, 32*19, 32*13, grid);
+        			chapter1.addObject(stud);
+        		}
+        	}
+        }
+        for( int i=0 ; i<grid.getLargeur() ; i++) {
+        	for( int j=0 ; j<grid.getHauteur() ; j++) {
+        		if(grid.getTile(i, j) == '3') {
+        	        chapter1.addObject(new BoarLvl2(32*i, 32*j, 32*19, 32*13,grid ,1, stud));
+        		}
+        		else if (grid.getTile(i, j) == '2'){
+        	        chapter1.addObject(new BoarLvl1(32*i, 32*j, 32*19, 32*13,grid ,1));
+        		}
+        	}
+        }
+        TextBox tb_life = new TextBox(100,100);
+        tb_life.setText("Vie :");
+        tb_life.setPos(20, 450);
+        tb_life.setSize(20);
         
-        chapter1.addText(tb);
+        stud.setlifeText(tb_life);
+        chapter1.addText(tb_life);
+        
+        TextBox tb_score = new TextBox(100,100);
+        tb_score.setText("Score :");
+        tb_score.setPos(100, 450);
+        tb_score.setSize(20);
+        
+        stud.setScoreText(tb_score);
+        chapter1.addText(tb_score);
+        
+        TextBox tb_pouvoirs = new TextBox(100,100);
+        tb_pouvoirs.setText("Pouvoirs :");
+        tb_pouvoirs.setPos(220, 450);
+        tb_pouvoirs.setSize(20);
+        
+        chapter1.addText(tb_pouvoirs);
         /*
         ButtonRestart restart = new ButtonRestart("restart");
         restart.addToRoom(chapter1);
